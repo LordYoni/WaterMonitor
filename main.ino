@@ -9,7 +9,6 @@ const int pinLevelNF = A5;         // Capteur de niveau NF
 // Variables de conversion
 float Vout, oxygenValue, pHValue, conductivityValue, pressureValue, turbidityValue, levelNFValue;
 
-
 // Constantes pour chaque capteur
 const float oxygenCalibrationFactor = 1.0;   // Facteur de calibration (à définir)
 const float oxygenVmax = 3.3;                // Tension maximale pour l'oxygène dissous
