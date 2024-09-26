@@ -5,7 +5,7 @@
 int analogBuffer[NUM_SAMPLES]; // Array to store the read analog values
 int tempBuffer[NUM_SAMPLES];   // Temporary array for sorted values
 int bufferIndex = 0, copyIndex = 0;
-float averageVoltage = 0, tdsValue = 0, temperature = 25;
+float averageVoltage = 0, tdsValue = 0, temperature = 10;
 
 void setup()
 {
@@ -16,7 +16,7 @@ void setup()
 void loop()
 {
     static unsigned long samplingTime = millis();
-
+    
     if (millis() - samplingTime > 40U)
     {
         samplingTime = millis();
@@ -31,15 +31,19 @@ void loop()
 
     static unsigned long displayTime = millis();
 
+
     if (millis() - displayTime > 800U)
     {
         displayTime = millis();
+        temperature = temperatureRead();
 
+        // Copy the analog buffer to the temporary buffer
         for (copyIndex = 0; copyIndex < NUM_SAMPLES; copyIndex++)
         {
             tempBuffer[copyIndex] = analogBuffer[copyIndex];
         }
 
+        // Calculate the median value from the temporary buffer
         averageVoltage = getMedianValue(tempBuffer, NUM_SAMPLES) * (float)VREF / 4096.0;
         float compensationCoefficient = 1.0 + 0.02 * (temperature - 25.0);
         float compensatedVoltage = averageVoltage / compensationCoefficient;
@@ -57,11 +61,13 @@ int getMedianValue(int array[], int filterLength)
 {
     int tempArray[filterLength];
 
+    // Copy the input array to a temporary array
     for (byte i = 0; i < filterLength; i++)
     {
         tempArray[i] = array[i];
     }
 
+    // Sort the temporary array
     int i, j, temp;
     for (j = 0; j < filterLength - 1; j++)
     {
@@ -76,6 +82,7 @@ int getMedianValue(int array[], int filterLength)
         }
     }
 
+    // Calculate the median value
     if ((filterLength & 1) > 0)
     {
         temp = tempArray[(filterLength - 1) / 2];
