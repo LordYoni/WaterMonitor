@@ -16,7 +16,7 @@ void setup()
 void loop()
 {
     static unsigned long samplingTime = millis();
-    
+
     if (millis() - samplingTime > 40U)
     {
         samplingTime = millis();
