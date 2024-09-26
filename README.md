@@ -1,16 +1,16 @@
-# ESP32 Project - Main.ino
+# 🚀 ESP32 Project - Main.ino
 
-## Description
+## 📄 Description
 
 This ESP32 project uses the `main.ino` file to control a device. The code implements the basic functionalities needed to operate the hardware connected to the ESP32 board.
 
-## Required Hardware
+## 🛠️ Required Hardware
 
 - ESP32 board
 - Connection cables
 - Project-specific components (sensors, LEDs, motors, etc.)
 
-## Sensor References
+## 🔍 Sensor References
 
 ### 1. Analog TDS Sensor/Meter
 
@@ -32,7 +32,7 @@ This ESP32 project uses the `main.ino` file to control a device. The code implem
 - **Link**: [Gravity Analog Electrical Conductivity Sensor SEN0451 - DFRobot](https://wiki.dfrobot.com/SKU_SEN0451_Gravity_Analog_Electrical_Conductivity_Sensor_PRO_K_1)
 - **Voltage Range**: 3.3 ~ 5.0 V
 
-## Data to Retrieve
+## 📊 Data to Retrieve
 
 **List of data to retrieve:**
 
@@ -42,22 +42,22 @@ This ESP32 project uses the `main.ino` file to control a device. The code implem
 - **Conductivity (µS/cm)**: Electrical conductivity of the solution.
 - **Temperature (°C)**: Water temperature (may require a separate temperature sensor).
 
-## Project Goal
+## 🎯 Project Goal
 
 The final goal of the project is to create a floating base with all the sensors in a waterproof box. The data will be sent via XBee, passing through XBee relays to collect the information on a final XBee. This data will then be transferred to a Raspberry Pi, stored in a database, and displayed on a website using a database.
 
-## Installation
+## 🛠️ Installation
 
 1. Download and install the [Arduino IDE](https://www.arduino.cc/en/software).
 2. Clone this repository or download the `main.ino` file.
 3. Open `main.ino` with the Arduino IDE.
 
-## Usage
+## 🚀 Usage
 
 1. Connect your ESP32 board to your computer via a USB cable.
 2. Select the appropriate board type and port in the Arduino IDE.
 3. Upload the code to the board by clicking the "Upload" button.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue to discuss the changes you want to make.
