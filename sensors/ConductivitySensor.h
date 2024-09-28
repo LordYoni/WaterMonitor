@@ -1,16 +1,27 @@
 #ifndef ConductivitySensor_H
 #define ConductivitySensor_H
 
-#include "Sensor.h"
+#include "baseSensorClass.h"
+#include "Temperature.h"
 
-class ConductivitySensor : public Sensor
+
+class Conductivity : public Sensor
 {
-public:
-    ConductivitySensor(const uint8_t& pin);
-    ~ConductivitySensor() override;
+private:
+    void poll(MCP3008 *const mcp) override;
 
-    void printValue() override;
-    void poll() override;
+public:
+    Conductivity(const uint8_t& channel);
+    ~Conductivity() override;
+
+    void poll(MCP3008 *const mcp, const Temperature& temp);
+    void printState() const override;
+
+private:
+    // Constants for Conductivity calculations
+    const float k = 1.0f;
+    const float RES2 = 820.0f;
+    const float ECREF = 200.0f;
 };
 
 #endif

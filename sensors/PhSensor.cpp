@@ -1,22 +1,24 @@
-#include <Arduino.h>
-#include "Sensor.h"
+
 #include "PhSensor.h"
 
-PhSensor::PhSensor(const uint8_t& pin) : Sensor(pin) {}
-PhSensor::~PhSensor() {}
 
+phSensor::phSensor(const uint8_t& channel) : Sensor(channel) {}
+phSensor::~phSensor() {}
 
-// Fonction pour lire le capteur de pH
-void PhSensor::printValue()
+// Function to calculate pH value
+void phSensor::poll(MCP3008 *const mcp)
 {
-    poll();
-    Serial.print("pH: ");
-    Serial.println(m_value);
+    pollVoltage(mcp);
+
+    // ??
+    //const float voltage_scaled = m_voltage * VREF / 1024.0f;
+    //m_value = 3.5f * voltage_scaled + OFFSET;
+    
+    m_value = 3.5f * m_voltage + OFFSET;
 }
 
-
-void PhSensor::poll()
+void phSensor::printState() const
 {
-    const float in = ConvertVoltage(analogRead(m_pin), 5.0f);
-    m_value = 3.5f * in;
+    Serial.print("pH: ");
+    Serial.println(m_value);
 }

@@ -1,26 +1,27 @@
 
-#include <Arduino.h>
-#include "Sensor.h"
 #include "ConductivitySensor.h"
 
-ConductivitySensor::ConductivitySensor(const uint8_t& pin) : Sensor(pin) {}
-ConductivitySensor::~ConductivitySensor() {}
 
+Conductivity::Conductivity(const uint8_t& channel) : Sensor(channel) {}
+Conductivity::~Conductivity() {}
 
-void ConductivitySensor::printValue()
+void Conductivity::poll(MCP3008 *const mcp) {};
+
+// Function to calculate conductivity
+void Conductivity::poll(MCP3008 *const mcp, const Temperature& temp)
 {
-    poll();
-    Serial.print("Conductivité (uS/cm): ");
-    Serial.println(m_value);
+    pollVoltage(mcp);
+    //Doesn't poll voltage from temp
+
+    const float ecValue = 100000.0f * m_voltage / RES2 / ECREF * k;
+    m_value = ecValue / (1.0f + 0.02f * (temp.getValue() - 25.0f));
 }
 
-
-// Fonction pour lire le capteur de conductivité
-void ConductivitySensor::poll()
+void Conductivity::printState() const
 {
-    const float R1              = 1.0f;   // Résistance pour le capteur de conductivité
-    const float conductivityVin = 5.0f;   // Tension d'alimentation pour le capteur de conductivité
-
-    const float in = ConvertVoltage(analogRead(m_pin), 3.3f);
-    m_value = (in * 1000.0f) / (R1 * conductivityVin - in);
+    Serial.print("EC Voltage: ");
+    Serial.print(m_voltage);
+    Serial.print(" mV, Conductivity: ");
+    Serial.print(m_value);
+    Serial.println(" uS/cm");
 }

@@ -1,16 +1,21 @@
 #ifndef PhSensor_H
 #define PhSensor_H
 
-#include "Sensor.h"
+#include "baseSensorClass.h"
 
-class PhSensor : public Sensor
+
+class phSensor : public Sensor
 {
 public:
-    PhSensor(const uint8_t& pin);
-    ~PhSensor() override;
+    phSensor(const uint8_t& channel);
+    ~phSensor() override;
 
-    void printValue() override;
-    void poll() override;
+    void poll(MCP3008 *const mcp) override;
+    void printState() const override;
+
+private:
+    // Constant for pH calculation
+    const float OFFSET = -5.0f;
 };
 
 #endif
