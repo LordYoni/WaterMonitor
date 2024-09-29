@@ -1,8 +1,8 @@
 # 🚀 ESP32 Project
 
-## 📄 Description
+## 🎯 Project Goal
 
-This ESP32 project uses the `main.ino` file to control a device. The code implements the basic functionalities needed to operate the hardware connected to the ESP32 board.
+The final goal of the project is to create a floating base with all the sensors in a waterproof box. The data will be sent via XBee, passing through XBee relays to collect the information on a final XBee. This data will then be transferred to a Raspberry Pi, stored in a database, and displayed on a website using a database.
 
 ## 🛠️ Required Hardware
 
@@ -42,14 +42,10 @@ This ESP32 project uses the `main.ino` file to control a device. The code implem
 - **Conductivity (µS/cm)**: Electrical conductivity of the solution.
 - **Temperature (°C)**: Water temperature (may require a separate temperature sensor).
 
-## 🎯 Project Goal
-
-The final goal of the project is to create a floating base with all the sensors in a waterproof box. The data will be sent via XBee, passing through XBee relays to collect the information on a final XBee. This data will then be transferred to a Raspberry Pi, stored in a database, and displayed on a website using a database.
-
 ## 🛠️ Installation
 
 1. Download and install the [Arduino IDE](https://www.arduino.cc/en/software).
-2. Clone this repository or download the `main.ino` file.
+2. Clone this repository.
 3. Open `main.ino` with the Arduino IDE.
 
 ## 🚀 Usage
