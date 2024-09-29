@@ -1,3 +1,5 @@
+
+#include "sensors/baseSensorClass.h"
 #include "sensors/PhSensor.h"
 #include "sensors/Temperature.h"
 #include "sensors/tdsSensor.h"
@@ -20,7 +22,6 @@ inline void sendToXbee
         temp_int,
         temp_dec,
         ph_int1,
-        ph_int2,
         ph_dec,
         tds_int1,
         tds_int2,
@@ -41,24 +42,16 @@ inline void sendToXbee
     //1 checksum byte
     //1 stop byte
 
-    uint8_t arr[sizeof(arrayIndex)];
+    uint8_t arr[13];
 
     arr[start]      = START_BYTE;
 
-    arr[temp_int]   = getInteger2   (te.getValue());
-    arr[temp_dec]   = getDecimal    (te.getValue());
+    uint8_t arr_index = temp_int;
 
-    arr[ph_int1]    = getInteger1   (ph.getValue());
-    arr[ph_int2]    = getInteger2   (ph.getValue());
-    arr[ph_dec]     = getDecimal    (ph.getValue());
-
-    arr[tds_int1]   = getInteger1   (tds.getValue());
-    arr[tds_int2]   = getInteger2   (tds.getValue());
-    arr[tds_dec]    = getDecimal    (tds.getValue());
-
-    arr[ec_int1]    = getInteger1   (ec.getValue());
-    arr[ec_int2]    = getInteger2   (ec.getValue());
-    arr[ec_dec]     = getDecimal    (ec.getValue());
+    writeToArray(arr, arr_index, te, 2);
+    writeToArray(arr, arr_index, ph, 2);
+    writeToArray(arr, arr_index, tds, 3);
+    writeToArray(arr, arr_index, ec, 3);
 
     //calculate checksum
     uint8_t chk = 0;
@@ -76,3 +69,18 @@ inline void sendToXbee
 uint8_t getInteger1 (const float& inp)  { return uint8_t(inp / 100); }
 uint8_t getInteger2 (const float& inp)  { return uint8_t(inp); }
 uint8_t getDecimal  (const float& inp)  { return uint8_t(inp * 100); }
+
+void writeToArray
+(
+    uint8_t *arr,
+    uint8_t &index,
+    const Sensor& sen,
+    const uint8_t& size
+)
+{
+    if (size == 3)
+        arr[index++]    = getInteger1   (sen.getValue());
+
+    arr[index++]    = getInteger2   (sen.getValue());
+    arr[index++]    = getDecimal    (sen.getValue());
+}
