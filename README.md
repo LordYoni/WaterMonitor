@@ -1,4 +1,4 @@
-# 🚀 ESP32 Project - Main.ino
+# 🚀 ESP32 Project
 
 ## 📄 Description
 
