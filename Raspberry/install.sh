@@ -5,6 +5,8 @@ DB_USER="usrSQL"
 DB_PASSWORD="pswdSQL"
 WEB_USER="user_name"
 
+echo "Running the server installation script..."
+
 # Update the system
 sudo apt update && sudo apt upgrade -y
 
