@@ -1,41 +1,42 @@
 #! /usr/bin/bash
 
-echo "THIS FILE IS NOT MEANT TO BE EXECUTED!"
-exit
+# Variables (à personnaliser)
+DB_USER="usrSQL"
+DB_PASSWORD="pswdSQL"
+WEB_USER="user_name"
 
-# All commands to execute on the host raspberry to setup the server.
+# Mettre à jour le système
+sudo apt update && sudo apt upgrade -y
 
-sudo apt update
-sudo apt upgrade
-sudo apt update
-sudo apt install apache2
-sudo chown -R user_name /var/www/html
+# Installer Apache
+sudo apt install apache2 -y
+sudo chown -R $WEB_USER /var/www/html
 
-sudo apt install mariadb-server
+# Installer MariaDB
+sudo apt install mariadb-server -y
 
-sudo apt install php
+# Installer PHP et phpMyAdmin
+sudo apt install php phpmyadmin -y
 
-sudo apt install phpmyadmin
+# Configurer MariaDB
+sudo mysql -u root <<EOF
+GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+QUIT;
+EOF
 
-# "apache2"
-# "yes"
-#
+# Configurer Apache pour inclure phpMyAdmin
+echo "Include /etc/phpmyadmin/apache.conf" | sudo tee -a /etc/apache2/apache2.conf
 
-sudo mysql -u root -p
-
-# "GRANT ALL PRIVILEGES ON *.* TO 'usrSQL'@'localhost' IDENTIFIED BY 'pswdSQL' WITH GRANT OPTION;"
-# "quit"
-
-sudo nano /etc/apache2/apache2.conf
-
-# write at the end "Include /etc/phpmyadmin/apache.conf"
-
+# Redémarrer Apache
 sudo service apache2 restart
 
-sudo apt-get install python3-pip
+# Installer pip et pyserial
+sudo apt-get install python3-pip -y
 
+# Créer un environnement virtuel Python et installer les dépendances
 python3 -m venv venv
 source venv/bin/activate
-pip install pyserial
-pip install mysql-connector-python
+pip install pyserial mysql-connector-python
 
+echo "Installation terminée !"
