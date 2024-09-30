@@ -2,7 +2,7 @@
 
 ## 🎯 Project Goal
 
-The final goal of the project is to create a floating base with all the sensors in a waterproof box. The data will be sent via XBee, passing through XBee relays to collect the information on a final XBee. This data will then be transferred to a Raspberry Pi, stored in a database, and displayed on a website using a database.
+The final goal of the project is to create a floating base with all the sensors in a waterproof box. The data will be sent via XBee, passing through XBee relays to collect the information on a final XBee. This data will then be transferred to a Raspberry Pi, stored in a database, and displayed on a website.
 
 ## 🛠️ Required Hardware
 
