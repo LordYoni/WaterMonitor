@@ -29,7 +29,7 @@ while 1:
 
             if clc_checksum == array_in[-2]:
 
-                temperature = float(str(int.from_bytes(array_in[1],byteorder='big', signed='true')) + "." + str(array_in[2]))
+                temperature = float(str(int.from_bytes([array_in[1]],byteorder='big', signed='true')) + "." + str(array_in[2]))
                 ph = float(str(array_in[3]) + "." + str(array_in[4]))
 
                 temp = str(array_in[5]*256 + array_in[6])
@@ -38,6 +38,15 @@ while 1:
 
                 temp = str(array_in[8]*256 + array_in[9])
                 ec = float(temp + "." + str(array_in[10]))
+
+                print("temp " + str(temperature))
+                print("ph " + str(ph))
+                print("tds " + str(tds))
+                print("ec " + str(ec))
+                print("ok")
+
+
+
 
                 # TODO: send in database
 
