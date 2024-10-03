@@ -64,6 +64,9 @@ inline void sendToXbee
     arr[end] = STOP_BYTE;
 
     //TODO: send
+
+    for (uint8_t i = 0; i < 13; i++)
+        Serial.write(arr[i]);
 }
 
 uint8_t getInteger1 (const float& inp)  { return uint8_t(inp / 100); }

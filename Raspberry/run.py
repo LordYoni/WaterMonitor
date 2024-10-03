@@ -22,7 +22,7 @@ while 1:
         if array_in[0] == start_byte and array_in[-1] == end_byte:
             clc_checksum = 0
         
-            for i in range(1,input_size-1):
+            for i in range(1,input_size-2):
                 clc_checksum += array_in[i]
             
             clc_checksum = clc_checksum % 0x100
