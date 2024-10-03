@@ -37,7 +37,7 @@ sudo service apache2 restart
 sudo apt-get install python3-pip -y
 
 # Create a Python virtual environment and install dependencies
-python3 -m venv venv
+python3 -m venv ~/venv
 source venv/bin/activate
 pip install pyserial mysql-connector-python
 
