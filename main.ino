@@ -38,10 +38,14 @@ void loop()
     ec.poll(&mcp, te);
 
     // Output sensor data
+    /*
     te.printState();
     ph.printState();
     tds.printState();
     ec.printState();
+    */
+
+   sendToXbee(ph, te, tds, ec);
 
     delay(1000);
 }
