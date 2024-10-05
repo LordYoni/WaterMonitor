@@ -112,8 +112,8 @@ if [ ! -d "$HOME/Scripts" ]; then
     mkdir -p "$HOME/Scripts"
 else
     cd "$HOME/Scripts"
-    curl -o run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 fi
+curl -o run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 
 
 # Clear the terminal screen
