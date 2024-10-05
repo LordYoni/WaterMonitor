@@ -79,7 +79,7 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ### Special Thanks
 
-A big thank you to the following contributors for their hard work on this project:
+A big thank you to the following contributors for their invaluable collaboration on this project. We worked together to bring this project to life:
 
 - [Eliot](https://github.com/GrosChien)
 - [Thomas](https://github.com/Thomas127)
