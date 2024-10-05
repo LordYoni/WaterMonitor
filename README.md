@@ -58,7 +58,7 @@ The primary goal of this project is to develop a floating base equipped with var
 1. **Open Arduino IDE**: Ensure you have the latest version installed.
 2. **Access Preferences**: Go to `File` > `Preferences`.
 3. **Add Board URL**: In the "Additional Board Manager URLs" field, add the following URL: https://dl.espressif.com/dl/package_esp32_index.json
-If there are already URLs in this field, separate them with commas.
+   If there are already URLs in this field, separate them with commas.
 4. **Open Board Manager**: Go to `Tools` > `Board` > `Board Manager`.
 5. **Search for ESP32**: Type "ESP32" in the search bar and install the latest version of the ESP32 by Espressif Systems.
 6. **Select the ESP32 Board**: Go to `Tools` > `Board`, and choose your specific ESP32 board.
@@ -69,9 +69,13 @@ To set up the necessary environment on your Raspberry Pi, run the following comm
 
 ```bash
 curl -o install.sh https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/install.sh
+```
+
+This command downloads the installation script. Once downloaded, you can run it to install the required components.
+
+```bash
 sudo ./install.sh
 ```
-This command downloads the installation script. Once downloaded, you can run it to install the required components.
 
 ## 🤝 Contributing
 
