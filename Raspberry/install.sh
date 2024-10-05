@@ -34,6 +34,12 @@ echo "Using the current user for the web server (WEB_USER): $WEB_USER"
 echo "Updating the system..."
 sudo apt update && sudo apt upgrade -y
 
+# Configure a swap file if the memory is limited
+echo "Configuring the swap file..."
+sudo dphys-swapfile setup
+sudo systemctl enable dphys-swapfile
+sudo systemctl start dphys-swapfile
+
 # Install Apache
 install_if_not_exists apache2
 # Change ownership of the web directory to the current user
@@ -99,7 +105,7 @@ python3 -m venv $HOME/venv
 source $HOME/venv/bin/activate
 pip install pyserial mysql-connector-python
 
-# Download run.py to $HOME/Scripts
+# Download run.py to ~/Scripts
 echo "Downloading run.py..."
 
 if [ ! -d "$HOME/Scripts" ]; then
