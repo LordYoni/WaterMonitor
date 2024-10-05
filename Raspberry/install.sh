@@ -95,13 +95,20 @@ install_if_not_exists python3-pip
 
 # Create a Python virtual environment and install dependencies
 echo "Creating Python virtual environment and installing dependencies..."
-python3 -m venv ~/venv
-source ~/venv/bin/activate
+python3 -m venv $HOME/venv
+source $HOME/venv/bin/activate
 pip install pyserial mysql-connector-python
 
-# Move run.py to ~/Scripts
-echo "Moving run.py to ~/Scripts..."
-mv "run.py" ~/Scripts/
+# Download run.py to $HOME/Scripts
+echo "Downloading run.py..."
+
+if [ ! -d "$HOME/Scripts" ]; then
+    mkdir -p "$HOME/Scripts"
+else
+    cd "$HOME/Scripts"
+    curl -o run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
+fi
+
 
 # Clear the terminal screen
 clear
