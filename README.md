@@ -7,7 +7,7 @@ The primary goal of this project is to develop a floating base equipped with var
 ## 🛠️ Required Hardware
 
 - **ESP32 Board**
-- **Raspberry Pi**
+- **Raspberry Pi Board**
 - **Connection Cables**
 - **Project-Specific Components:**
   - Analog TDS Sensor
