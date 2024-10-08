@@ -110,9 +110,8 @@ echo "Downloading run.py..."
 
 if [ ! -d "$HOME/Scripts" ]; then
     mkdir -p "$HOME/Scripts"
-else
-    cd "$HOME/Scripts"
 fi
+cd "$HOME/Scripts"
 curl -o run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 
 
@@ -128,3 +127,5 @@ echo "
  | |____  | |__| | | |  | | | |      | |____  | |____     | |    | |____  | |__| |   |_| |_| |_|
   \_____|  \____/  |_|  |_| |_|      |______| |______|    |_|    |______| |_____/    (_) (_) (_)
 "
+
+
