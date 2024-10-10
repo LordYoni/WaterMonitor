@@ -119,7 +119,7 @@ CREATE TABLE Data (
     pH FLOAT,
     Oxygen FLOAT,
     Conductivity FLOAT,
-    Temp Float
+    Temp FLOAT
 );
 EOF
 
