@@ -165,12 +165,12 @@ curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMon
 echo "Downloading Neofetch..."
 sudo apt-get install neofetch -y
 
-#Add aliases to .bashrc
+#Custom .bashrc
 echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
 echo "alias c='clear'" >> $HOME/.bashrc
 echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
 echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
-
+echo "neofetch" >> $HOME/.bashrc
 
 # Clear the terminal screen
 clear
