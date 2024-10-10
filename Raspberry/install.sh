@@ -49,30 +49,43 @@ install_if_not_exists mariadb-server
 install_if_not_exists php
 install_if_not_exists phpmyadmin
 
-# Prompt the user for necessary information for the database
-while true; do
-    echo "Please enter the username you want for the MariaDB database (DB_USER):"
-    read DB_USER
+# File to store user information
+USER_INFO_FILE="$HOME/.db_user_info"
 
-    if [[ -z "$DB_USER" ]]; then
-        echo "Error: User cannot be empty. Please try again."
-    else
-        break
-    fi
-done
+# Check if user information file exists
+if [ -f "$USER_INFO_FILE" ]; then
 
-# Prompt for the database password securely
-while true; do
-    echo "Please enter the password you want for the MariaDB database (DB_PASSWORD):"
-    read -s DB_PASSWORD  
+    source "$USER_INFO_FILE"
+else
+    # Prompt the user for necessary information for the database
+    while true; do
+        echo "Please enter the username you want for the MariaDB database (DB_USER):"
+        read DB_USER
 
-    # Check if password was provided
-    if [[ -z "$DB_PASSWORD" ]]; then
-        echo "Error: Password cannot be empty. Please try again."
-    else
-        break
-    fi
-done
+        if [[ -z "$DB_USER" ]]; then
+            echo "Error: User cannot be empty. Please try again."
+        else
+            break
+        fi
+    done
+
+    # Prompt for the database password securely
+    while true; do
+        echo "Please enter the password you want for the MariaDB database (DB_PASSWORD):"
+        read -s DB_PASSWORD  
+
+        # Check if password was provided
+        if [[ -z "$DB_PASSWORD" ]]; then
+            echo "Error: Password cannot be empty. Please try again."
+        else
+            break
+        fi
+    done
+
+    # Save user information to file
+    echo "DB_USER=$DB_USER" > "$USER_INFO_FILE"
+    echo "DB_PASSWORD=$DB_PASSWORD" >> "$USER_INFO_FILE"
+fi
 
 # Configure MariaDB
 echo "Configuring MariaDB..."
@@ -107,7 +120,6 @@ if [ ! -d "$HOME/Scripts" ]; then
     mkdir -p "$HOME/Scripts"
 fi
 curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
-
 
 # Clear the terminal screen
 clear
