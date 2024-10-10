@@ -180,8 +180,8 @@ echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
 echo "alias c='clear'" >> $HOME/.bashrc
 echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
 echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
-echo "neofetch" >> $HOME/.bashrc
 echo "alias DBtest='mysql -u $DB_USER -p $DB_NAME < test_values.sql'" >> $HOME/.bashrc
+echo "neofetch" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 # Clear the terminal screen
