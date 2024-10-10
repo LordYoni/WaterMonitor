@@ -70,7 +70,11 @@ To set up the necessary environment on your Raspberry Pi, run the following comm
 ```bash
 curl -o install.sh https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/install.sh
 ```
+This command modifies the permissions of install.sh, making it executable. It's necessary to do this before you can run the script.
 
+```bash
+chmod +x install.sh
+```
 This command downloads the installation script. Once downloaded, you can run it to install the required components.
 
 ```bash
