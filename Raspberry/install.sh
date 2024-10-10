@@ -102,6 +102,17 @@ else
     echo "DB_NAME=$DB_NAME" >> "$USER_INFO_FILE"
 fi
 
+# Create the config.php file
+CONFIG_FILE="/var/www/html/config.php"
+echo "<?php" | sudo tee $CONFIG_FILE
+echo "define('DB_HOST', 'localhost');" | sudo tee -a $CONFIG_FILE
+echo "define('DB_USER', '$DB_USER');" | sudo tee -a $CONFIG_FILE
+echo "define('DB_PASS', '$DB_PASSWORD');" | sudo tee -a $CONFIG_FILE
+echo "define('DB_NAME', '$DB_NAME');" | sudo tee -a $CONFIG_FILE
+
+sudo chmod 600 /var/www/html/config.php
+
+
 # Configure MariaDB
 echo "Configuring MariaDB..."
 sudo mysql -u root <<EOF
@@ -119,7 +130,7 @@ CREATE TABLE Data (
     pH FLOAT,
     Oxygen FLOAT,
     Conductivity FLOAT,
-    Temp FLOAT
+    Temperature FLOAT
 );
 EOF
 
@@ -141,7 +152,6 @@ echo "Creating Python virtual environment and installing dependencies..."
 python3 -m venv $HOME/venv
 source $HOME/venv/bin/activate
 pip install pyserial mysql-connector-python
-echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
 
 # Download run.py to ~/Scripts
 echo "Downloading run.py..."
@@ -154,6 +164,13 @@ curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMon
 # Download Neofetch
 echo "Downloading Neofetch..."
 sudo apt-get install neofetch -y
+
+#Add aliases to .bashrc
+echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
+echo "alias c='clear'" >> $HOME/.bashrc
+echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
+echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
+
 
 # Clear the terminal screen
 clear
