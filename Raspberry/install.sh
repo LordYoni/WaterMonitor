@@ -16,7 +16,7 @@ set -e
 # Automatically get the current user
 WEB_USER=$(whoami)
 
-# Display ASCII art header
+# Display Starting message 
 echo "
 Starting...
 "
@@ -186,7 +186,7 @@ source $HOME/.bashrc
 # Clear the terminal screen
 clear
 
-# Display completion message with ASCII art
+# Display completion message 
 echo "
 Completed !!!
 "
