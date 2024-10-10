@@ -30,6 +30,9 @@ echo "Using the current user for the web server (WEB_USER): $WEB_USER"
 echo "Updating the system..."
 sudo apt update && sudo apt upgrade -y
 
+#Install Git
+sudo apt-get install git
+
 # Configure a swap file if the memory is limited
 echo "Configuring the swap file..."
 sudo dphys-swapfile setup
@@ -54,7 +57,6 @@ USER_INFO_FILE="$HOME/.db_user_info"
 
 # Check if user information file exists
 if [ -f "$USER_INFO_FILE" ]; then
-
     source "$USER_INFO_FILE"
 else
     # Prompt the user for necessary information for the database
@@ -82,9 +84,22 @@ else
         fi
     done
 
+    # Prompt for the database name
+    while true; do
+        echo "Please enter the name of the database you want to create (DB_NAME):"
+        read DB_NAME
+
+        if [[ -z "$DB_NAME" ]]; then
+            echo "Error: Database name cannot be empty. Please try again."
+        else
+            break
+        fi
+    done
+
     # Save user information to file
     echo "DB_USER=$DB_USER" > "$USER_INFO_FILE"
     echo "DB_PASSWORD=$DB_PASSWORD" >> "$USER_INFO_FILE"
+    echo "DB_NAME=$DB_NAME" >> "$USER_INFO_FILE"
 fi
 
 # Configure MariaDB
@@ -92,6 +107,20 @@ echo "Configuring MariaDB..."
 sudo mysql -u root <<EOF
 GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+-- Create the database and table
+
+CREATE DATABASE $DB_NAME;
+USE $DB_NAME;
+CREATE TABLE Data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    TDS FLOAT,
+    pH FLOAT,
+    Oxygen FLOAT,
+    Conductivity FLOAT,
+    Temp Float
+);
 EOF
 
 # Check if phpMyAdmin configuration is already included in Apache
@@ -136,4 +165,3 @@ sleep 2
 
 # Display neofetch
 neofetch
-
