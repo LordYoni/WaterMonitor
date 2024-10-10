@@ -134,6 +134,9 @@ CREATE TABLE Data (
 );
 EOF
 
+#Install Random Value SQL Script
+curl -o test_values.sql https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/test_values.sql
+
 # Check if phpMyAdmin configuration is already included in Apache
 if ! grep -q "Include /etc/phpmyadmin/apache.conf" /etc/apache2/apache2.conf; then
     echo "Including phpMyAdmin in Apache configuration..."
@@ -177,6 +180,8 @@ echo "alias c='clear'" >> $HOME/.bashrc
 echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
 echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
 echo "neofetch" >> $HOME/.bashrc
+echo "alias DBtest='mysql -u $DB_USER -p $DB_NAME < test_values.sql'" >> $HOME/.bashrc
+source $HOME/.bashrc
 
 # Clear the terminal screen
 clear
