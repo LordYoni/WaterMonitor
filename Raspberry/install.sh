@@ -31,7 +31,7 @@ echo "Updating the system..."
 sudo apt update && sudo apt upgrade -y
 
 #Install Git
-sudo apt-get install git
+sudo apt-get install git -y
 
 # Configure a swap file if the memory is limited
 echo "Configuring the swap file..."
@@ -153,7 +153,7 @@ curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMon
 
 # Download Neofetch
 echo "Downloading Neofetch..."
-sudo apt-get install neofetch
+sudo apt-get install neofetch -y
 
 # Clear the terminal screen
 clear
