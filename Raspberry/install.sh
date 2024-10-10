@@ -111,6 +111,7 @@ echo "define('DB_USER', '$DB_USER');" | sudo tee -a $CONFIG_FILE
 echo "define('DB_PASS', '$DB_PASSWORD');" | sudo tee -a $CONFIG_FILE
 echo "define('DB_NAME', '$DB_NAME');" | sudo tee -a $CONFIG_FILE
 
+sudo chown www-data:www-data /var/www/html/config.php
 sudo chmod 600 /var/www/html/config.php
 
 
@@ -153,6 +154,9 @@ curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/Wate
 curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/script.js
 curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/style.css
 curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/value.php
+
+sudo chown www-data:www-data /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php
+sudo chmod 644 /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php
 
 # Install pip for Python 3
 install_if_not_exists python3-pip
