@@ -141,6 +141,7 @@ echo "Creating Python virtual environment and installing dependencies..."
 python3 -m venv $HOME/venv
 source $HOME/venv/bin/activate
 pip install pyserial mysql-connector-python
+echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
 
 # Download run.py to ~/Scripts
 echo "Downloading run.py..."
