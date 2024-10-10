@@ -121,6 +121,10 @@ if [ ! -d "$HOME/Scripts" ]; then
 fi
 curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 
+# Download Neofetch
+echo "Downloading Neofetch..."
+sudo apt-get install neofetch
+
 # Clear the terminal screen
 clear
 
@@ -128,3 +132,8 @@ clear
 echo "
 Completed !!!
 "
+sleep 2
+
+# Display neofetch
+neofetch
+
