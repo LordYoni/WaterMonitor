@@ -144,6 +144,12 @@ fi
 echo "Restarting Apache..."
 sudo service apache2 restart
 
+#Install WebSite
+curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/index.html
+curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/script.js
+curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/style.css
+curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/value.php
+
 # Install pip for Python 3
 install_if_not_exists python3-pip
 
