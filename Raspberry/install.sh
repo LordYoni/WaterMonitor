@@ -18,12 +18,7 @@ WEB_USER=$(whoami)
 
 # Display ASCII art header
 echo "
-   _____ _______       _____ _______ _____ _   _  _____
-  / ____|__   __|/\   |  __ \__   __|_   _| \ | |/ ____|
- | (___    | |  /  \  | |__) | | |    | | |  \| | |  __ 
-  \___ \   | | / /\ \ |  _  /  | |    | | | . ` | | |_ |
-  ____) |  | |/ ____ \| | \ \  | |   _| |_| |\  | |__| |_ _ _
- |_____/   |_/_/    \_\_|  \_\ |_|  |_____|_| \_|\_____(_|_|_)
+Starting...
 "
 
 sleep 2
@@ -84,7 +79,6 @@ echo "Configuring MariaDB..."
 sudo mysql -u root <<EOF
 GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-QUIT;
 EOF
 
 # Check if phpMyAdmin configuration is already included in Apache
@@ -121,10 +115,5 @@ clear
 
 # Display completion message with ASCII art
 echo "
-   _____ ____  __  __ _____  _      ______ _______ ______ _____  _ _ _
-  / ____/ __ \|  \/  |  __ \| |    |  ____|__   __|  ____|  __ \| | | |
- | |   | |  | | \  / | |__) | |    | |__     | |  | |__  | |  | | | | |
- | |   | |  | | |\/| |  ___/| |    |  __|    | |  |  __| | |  | | | | |
- | |___| |__| | |  | | |    | |____| |____   | |  | |____| |__| |_|_|_|
-  \_____\____/|_|  |_|_|    |______|______|  |_|  |______|_____/(_|_|_)
+Completed !!!
 "
