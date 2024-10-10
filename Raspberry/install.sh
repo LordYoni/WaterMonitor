@@ -106,8 +106,7 @@ echo "Downloading run.py..."
 if [ ! -d "$HOME/Scripts" ]; then
     mkdir -p "$HOME/Scripts"
 fi
-cd "$HOME/Scripts"
-curl -o run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
+curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 
 
 # Clear the terminal screen
