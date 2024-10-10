@@ -28,6 +28,7 @@ echo "Using the current user for the web server (WEB_USER): $WEB_USER"
 
 # Update the system
 echo "Updating the system..."
+sudo dpkg --configure -a
 sudo apt update && sudo apt upgrade -y
 
 #Install Git
