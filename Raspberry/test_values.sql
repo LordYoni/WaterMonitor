@@ -1,4 +1,4 @@
-INSERT INTO Data (Time, TDS, pH, Oxygen, Conductivity, Temp)
+INSERT INTO Data (Time, TDS, pH, Oxygen, Conductivity, Temperature)
 VALUES
 (NOW(), 120.50, 7.20, 8.50, 320.75, 20.00),
 (NOW(), 180.00, 7.50, 9.20, 410.10, 18.75),
