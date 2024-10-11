@@ -4,24 +4,30 @@ function fetchData() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json(); // Parse the JSON data from the response
+      return response.json();
     })
     .then((data) => {
-      const tableBody = document
-        .getElementById("data-table")
-        .getElementsByTagName("tbody")[0];
-      tableBody.innerHTML = ""; // Clear the table body
-
-      // Add data in the table
+      const dataCards = document.getElementById("data-cards");
+      dataCards.innerHTML = "";
       data.forEach((row) => {
-        const newRow = tableBody.insertRow();
-        newRow.insertCell(0).innerText = row.id;
-        newRow.insertCell(1).innerText = row.Time;
-        newRow.insertCell(2).innerText = row.TDS;
-        newRow.insertCell(3).innerText = row.pH;
-        newRow.insertCell(4).innerText = row.Oxygen;
-        newRow.insertCell(5).innerText = row.Conductivity;
-        newRow.insertCell(6).innerText = row.Temperature;
+        const card = `
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">ID: ${row.id}</h5>
+                <p class="card-text">
+                  <strong>Time:</strong> ${row.Time} <br />
+                  <strong>TDS:</strong> ${row.TDS} ppm <br />
+                  <strong>pH:</strong> ${row.pH} <br />
+                  <strong>Oxygen:</strong> ${row.Oxygen} mg/L <br />
+                  <strong>Conductivity:</strong> ${row.Conductivity} µS/cm <br />
+                  <strong>Temp:</strong> ${row.Temperature} °C
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+        dataCards.innerHTML += card;
       });
     })
     .catch((error) => {
@@ -29,5 +35,7 @@ function fetchData() {
     });
 }
 
-// Fetch data on page load
-window.onload = fetchData;
+window.onload = function () {
+  fetchData();
+  setInterval(fetchData, 5000);
+};
