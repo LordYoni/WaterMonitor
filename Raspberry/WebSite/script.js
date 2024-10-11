@@ -21,7 +21,7 @@ function fetchData() {
         newRow.insertCell(3).innerText = row.pH;
         newRow.insertCell(4).innerText = row.Oxygen;
         newRow.insertCell(5).innerText = row.Conductivity;
-        newRow.insertCell(6).innerText = row.Temp;
+        newRow.insertCell(6).innerText = row.Temperature;
       });
     })
     .catch((error) => {

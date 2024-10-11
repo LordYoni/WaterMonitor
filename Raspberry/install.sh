@@ -175,17 +175,19 @@ if [ ! -d "$HOME/Scripts" ]; then
 fi
 curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
 
-# Download Neofetch
-echo "Downloading Neofetch..."
-install_if_not_exists neofetch
+# Download Fastfetch
+echo "Downloading Fastfetch..."
+wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.27.1/fastfetch-linux-aarch64.deb
+sudo dpkg -i fastfetch-linux-aarch64.deb 
+rm fastfetch-linux-aarch64.deb
 
 #Custom .bashrc
 echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
-echo "alias c='clear'" >> $HOME/.bashrc
+echo "alias c='clear && fastfetch'" >> $HOME/.bashrc
 echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
 echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
-echo "alias DBtest='mysql -u $DB_USER -p $DB_NAME < test_values.sql'" >> $HOME/.bashrc
-echo "neofetch" >> $HOME/.bashrc
+echo "alias DBtest='mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < test_values.sql'" >> $HOME/.bashrc
+echo "fastfetch" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 # Clear the terminal screen
