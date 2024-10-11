@@ -28,7 +28,7 @@ function fetchData() {
         { label: "pH", value: latestEntry.pH },
         { label: "Oxygen", value: `${latestEntry.Oxygen} mg/L` },
         { label: "Conductivity", value: `${latestEntry.Conductivity} µS/cm` },
-        { label: "Temp", value: `${latestEntry.Temp} °C` },
+        { label: "Temp", value: `${latestEntry.Temperature} °C` },
       ];
 
       // Create a card for each piece of information
