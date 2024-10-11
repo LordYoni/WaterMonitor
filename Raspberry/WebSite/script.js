@@ -36,7 +36,11 @@ function fetchData() {
           value: `${latestEntry.Temperature} °C`,
           icon: "🌡️",
         },
-        { label: "Dernière actualisation", value: "30m", icon: "⏱️" },
+        {
+          label: "Dernière actualisation",
+          value: `${latestEntry.Time}`,
+          icon: "⏱️",
+        },
         { label: "État", value: "En marche", icon: "✔️" },
       ];
 
