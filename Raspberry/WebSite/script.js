@@ -1,28 +1,44 @@
+window.onload = function () {
+  fetchData(); // Initial call to load data on page load
+  setInterval(fetchData, 5000); // Refresh data every 5 seconds
+};
+
 function fetchData() {
   fetch("value.php")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json();
+      return response.json(); // Parse the JSON data from the response
     })
     .then((data) => {
+      if (data.length === 0) {
+        console.error("No data found.");
+        return;
+      }
+
+      const latestEntry = data[data.length - 1]; // Get the last entry in the data
       const dataCards = document.getElementById("data-cards");
-      dataCards.innerHTML = "";
-      data.forEach((row) => {
+      dataCards.innerHTML = ""; // Clear previous cards
+
+      // Array containing the information to be displayed in cards
+      const infoArray = [
+        { label: "Time", value: latestEntry.Time },
+        { label: "TDS", value: `${latestEntry.TDS} ppm` },
+        { label: "pH", value: latestEntry.pH },
+        { label: "Oxygen", value: `${latestEntry.Oxygen} mg/L` },
+        { label: "Conductivity", value: `${latestEntry.Conductivity} µS/cm` },
+        { label: "Temp", value: `${latestEntry.Temp} °C` },
+      ];
+
+      // Create a card for each piece of information
+      infoArray.forEach((info) => {
         const card = `
-          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+          <div class="col-sm-6 col-md-4 col-lg-2 mb-4">
             <div class="card shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title">ID: ${row.id}</h5>
-                <p class="card-text">
-                  <strong>Time:</strong> ${row.Time} <br />
-                  <strong>TDS:</strong> ${row.TDS} ppm <br />
-                  <strong>pH:</strong> ${row.pH} <br />
-                  <strong>Oxygen:</strong> ${row.Oxygen} mg/L <br />
-                  <strong>Conductivity:</strong> ${row.Conductivity} µS/cm <br />
-                  <strong>Temp:</strong> ${row.Temperature} °C
-                </p>
+              <div class="card-body text-center">
+                <h5 class="card-title">${info.label}</h5>
+                <p class="card-text">${info.value}</p>
               </div>
             </div>
           </div>
@@ -34,8 +50,3 @@ function fetchData() {
       console.error("Error fetching data:", error);
     });
 }
-
-window.onload = function () {
-  fetchData();
-  setInterval(fetchData, 5000);
-};
