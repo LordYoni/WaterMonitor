@@ -23,21 +23,30 @@ function fetchData() {
 
       // Array containing the information to be displayed in cards
       const infoArray = [
-        { label: "Time", value: latestEntry.Time },
-        { label: "TDS", value: `${latestEntry.TDS} ppm` },
-        { label: "pH", value: latestEntry.pH },
-        { label: "Oxygen", value: `${latestEntry.Oxygen} mg/L` },
-        { label: "Conductivity", value: `${latestEntry.Conductivity} µS/cm` },
-        { label: "Temp", value: `${latestEntry.Temperature} °C` },
+        { label: "PH", value: `${latestEntry.pH}`, icon: "💧" },
+        { label: "TDS", value: `${latestEntry.TDS} ppm`, icon: "⚡" },
+        { label: "Oxygen", value: `${latestEntry.Oxygen} mg/L`, icon: "🫧" },
+        {
+          label: "Conductivité",
+          value: `${latestEntry.Conductivity} µS/cm`,
+          icon: "⚡",
+        },
+        {
+          label: "Température",
+          value: `${latestEntry.Temperature} °C`,
+          icon: "🌡️",
+        },
+        { label: "Dernière actualisation", value: "30m", icon: "⏱️" },
+        { label: "État", value: "En marche", icon: "✔️" },
       ];
 
       // Create a card for each piece of information
       infoArray.forEach((info) => {
         const card = `
-          <div class="col-sm-6 col-md-4 col-lg-2 mb-4">
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="card shadow-sm">
               <div class="card-body text-center">
-                <h5 class="card-title">${info.label}</h5>
+                <h5 class="card-title">${info.icon} ${info.label}</h5>
                 <p class="card-text">${info.value}</p>
               </div>
             </div>
@@ -47,6 +56,6 @@ function fetchData() {
       });
     })
     .catch((error) => {
-      console.error("Error fetching data:", error);
+      console.error("Erreur lors de la récupération des données :", error);
     });
 }
