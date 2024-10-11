@@ -187,8 +187,9 @@ echo "alias c='clear && fastfetch'" >> $HOME/.bashrc
 echo "alias shutdown='sudo shutdown now'" >> $HOME/.bashrc
 echo "alias reboot='sudo reboot'" >> $HOME/.bashrc
 echo "alias DBtest='mysql -u $DB_USER -p$DB_PASSWORD $DB_NAME < test_values.sql'" >> $HOME/.bashrc
+echo "alias neofetch='fastfetch'" >> $HOME/.bashrc
 echo "fastfetch" >> $HOME/.bashrc
-source $HOME/.bashrc
+source .bashrc
 
 # Clear the terminal screen
 clear
