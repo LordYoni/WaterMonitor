@@ -200,5 +200,5 @@ Completed !!!
 "
 sleep 2
 
-# Display neofetch
-neofetch
+# Display fastfetch
+fastfetch
