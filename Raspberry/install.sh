@@ -32,7 +32,7 @@ sudo dpkg --configure -a
 sudo apt update && sudo apt upgrade -y
 
 #Install Git
-sudo apt-get install git -y
+install_if_not_exists git -y
 
 # Configure a swap file if the memory is limited
 echo "Configuring the swap file..."
@@ -177,7 +177,7 @@ curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMon
 
 # Download Neofetch
 echo "Downloading Neofetch..."
-sudo apt-get install neofetch -y
+install_if_not_exists neofetch
 
 #Custom .bashrc
 echo "alias venvlaunch='source venv/bin/activate'" >> $HOME/.bashrc
