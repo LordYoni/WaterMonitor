@@ -1,5 +1,11 @@
 import serial
 
+def add_comma(arr):
+    if arr < 10:
+        return str(".0" + str(arr))
+    else:
+        return str("." + str(arr))
+
 # Configuration of serial communication parameters
 timeout_sec = 3
 input_size = 16
@@ -39,16 +45,16 @@ while True:
             if clc_checksum == array_in[-2]:
                 # Converting data to usable values
                 temperature = float(str(int.from_bytes([array_in[1]], byteorder='big', signed=True)) + "." + str(array_in[2]))
-                ph = float(str(array_in[3]) + "." + str(array_in[4]))
+                ph = float(str(array_in[3]) + add_comma(array_in[4]))
 
                 temp = str(array_in[5] * 256 + array_in[6])
-                tds = float(temp + "." + str(array_in[7]))
+                tds = float(temp + add_comma(array_in[7]))
 
                 temp = str(array_in[8] * 256 + array_in[9])
-                ec = float(temp + "." + str(array_in[10]))
+                ec = float(temp + add_comma(array_in[10]))
 
                 temp = str(array_in[11] * 256 + array_in[12])
-                ec = float(temp + "." + str(array_in[13]))
+                ox = float(temp + add_comma(array_in[13]))
 
                 for i in range(1, input_size - 1):
                     print(hex(array_in[i]))
