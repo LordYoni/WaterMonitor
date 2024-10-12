@@ -2,7 +2,7 @@
 #include "Temperature.h"
 
 
-Temperature::Temperature(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
+Temperature::Temperature(MCP3008 *const mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
 Temperature::~Temperature() {}
 
 // Function to calculate temperature from PT1000 sensor

@@ -8,13 +8,13 @@
 class Conductivity : public Sensor
 {
 private:
-    void poll() override;
+    const Temperature& m_temperature;
 
 public:
-    Conductivity(const MCP3008& mcp, const uint8_t& channel);
+    Conductivity(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp);
     ~Conductivity() override;
 
-    void poll(const Temperature& temp);
+    void poll();
     void printState() const override;
 
 private:

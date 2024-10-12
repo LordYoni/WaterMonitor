@@ -2,18 +2,18 @@
 #include "tdsSensor.h"
 
 
-TDS::TDS(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
+TDS::TDS(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp)
+    : Sensor(mcp, channel), m_tempeature(temp) {}
+
 TDS::~TDS() {}
 
-void TDS::poll() {};
-
 // Function to calculate TDS value
-void TDS::poll(const Temperature& temp)
+void TDS::poll()
 {
     pollVoltage();
     //Doesn't poll voltage from temp
     
-    const float compensationCoefficient = 1.0f + 0.02f * (temp.getValue() - 25.0f);
+    const float compensationCoefficient = 1.0f + 0.02f * (m_tempeature.getValue() - 25.0f);
     const float compensatedVoltage = m_voltage / compensationCoefficient;
 
     m_value = (133.42f * pow(compensatedVoltage, 3.0f) -

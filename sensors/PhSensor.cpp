@@ -2,7 +2,7 @@
 #include "PhSensor.h"
 
 
-phSensor::phSensor(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
+phSensor::phSensor(MCP3008 *const mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
 phSensor::~phSensor() {}
 
 // Function to calculate pH value

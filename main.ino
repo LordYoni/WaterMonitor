@@ -26,16 +26,16 @@ void loop()
 {
     MCP3008         mcp (MCP_CLOCK_PIN, MCP_MOSI_PIN, MCP_MISO_PIN, MCP_CS_PIN);
     
-    phSensor        ph  (mcp, mcpChannel::PH);
-    Temperature     te  (mcp, mcpChannel::TE);
-    TDS             tds (mcp, mcpChannel::TDSc);
-    Conductivity    ec  (mcp, mcpChannel::EC);
+    phSensor        ph  (&mcp, mcpChannel::PH);
+    Temperature     te  (&mcp, mcpChannel::TE);
+    TDS             tds (&mcp, mcpChannel::TDSc, te);
+    Conductivity    ec  (&mcp, mcpChannel::EC, te);
 
     // Read sensor values
     te.poll();
     ph.poll();
-    tds.poll(te);
-    ec.poll(te);
+    tds.poll();
+    ec.poll();
 
     // Output sensor data
     /*

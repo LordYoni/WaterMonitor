@@ -7,14 +7,18 @@
 class Sensor
 {
 private:
-    MCP3008 m_mcp;
+    //Cannot be declared as a const reference because the
+    //readADC() method is not declared as const even though
+    //it doesn't modify any of its class members.
+    MCP3008 *const m_mcp;
+
     const uint8_t m_channel;
 
 protected:
     float m_voltage;
     float m_value;
 
-    Sensor(const MCP3008& mcp, const uint8_t& channel);
+    Sensor(MCP3008 *const mcp, const uint8_t& channel);
 
     void pollVoltage();
 
