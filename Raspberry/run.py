@@ -48,7 +48,7 @@ while True:
                 ec = float(temp + "." + str(array_in[10]))
 
                 temp = str(array_in[11] * 256 + array_in[12])
-                ec = float(temp + "." + str(array_in[13]))
+                ox = float(temp + "." + str(array_in[13]))
 
                 for i in range(1, input_size - 1):
                     print(hex(array_in[i]))
