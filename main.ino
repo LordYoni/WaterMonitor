@@ -6,6 +6,8 @@
 #include "sensors/Temperature.cpp"
 #include "sensors/tdsSensor.cpp"
 #include "sensors/ConductivitySensor.cpp"
+#include "sensors/Oxygen.cpp"
+
 
 const uint8_t MCP_CS_PIN = 5;
 const uint8_t MCP_CLOCK_PIN = 18;
@@ -17,7 +19,8 @@ enum mcpChannel : uint8_t
     EC,
     TE,
     PH,
-    TDSc
+    TDSc,
+    OX
 };
 
 void setup() { Serial.begin(9600); }
@@ -30,12 +33,14 @@ void loop()
     Temperature     te  (&mcp, mcpChannel::TE);
     TDS             tds (&mcp, mcpChannel::TDSc, te);
     Conductivity    ec  (&mcp, mcpChannel::EC, te);
+    Oxygen          ox  (&mcp, mcpChannel::OX, te);
 
     // Read sensor values
     te.poll();
     ph.poll();
     tds.poll();
     ec.poll();
+    ox.poll();
 
     // Output sensor data
     /*
@@ -43,9 +48,10 @@ void loop()
     ph.printState();
     tds.printState();
     ec.printState();
+    ox.printState();
     */
 
-    sendToXbee(ph, te, tds, ec);
+    sendToXbee(ph, te, tds, ec, ox);
 
     delay(1000);
 }

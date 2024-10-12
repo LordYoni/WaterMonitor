@@ -2,7 +2,7 @@ import serial
 
 # Configuration of serial communication parameters
 timeout_sec = 3
-input_size = 13
+input_size = 16
 
 # Definition of start and end bytes
 start_byte = 0xa0
@@ -23,11 +23,13 @@ while True:
 
     # Checking the size of the read data
     if len(array_in) == input_size:
+
         # Checking the start and end bytes
         if array_in[0] == start_byte and array_in[-1] == end_byte:
-            clc_checksum = 0
 
             # Calculating the checksum
+            clc_checksum = 0
+            
             for i in range(1, input_size - 2):
                 clc_checksum += array_in[i]
 
@@ -45,11 +47,19 @@ while True:
                 temp = str(array_in[8] * 256 + array_in[9])
                 ec = float(temp + "." + str(array_in[10]))
 
+                temp = str(array_in[11] * 256 + array_in[12])
+                ec = float(temp + "." + str(array_in[13]))
+
+                for i in range(1, input_size - 1):
+                    print(hex(array_in[i]))
+
                 print("Temperature: " + str(temperature))
                 print("pH: " + str(ph))
                 print("TDS: " + str(tds))
                 print("EC: " + str(ec))
-                print("Data received successfully")
+                print("OX: " + str(ox))
+
+                print("Data received successfully\n")
 
                 # TODO: send data to database
 
