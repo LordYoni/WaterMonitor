@@ -63,8 +63,6 @@ inline void sendToXbee
 
     arr[end] = STOP_BYTE;
 
-    //TODO: send
-
     for (uint8_t i = 0; i < 13; i++)
         Serial.write(arr[i]);
 }

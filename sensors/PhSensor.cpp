@@ -2,13 +2,13 @@
 #include "PhSensor.h"
 
 
-phSensor::phSensor(const uint8_t& channel) : Sensor(channel) {}
+phSensor::phSensor(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
 phSensor::~phSensor() {}
 
 // Function to calculate pH value
-void phSensor::poll(MCP3008 *const mcp)
+void phSensor::poll()
 {
-    pollVoltage(mcp);
+    pollVoltage();
 
     // ??
     //const float voltage_scaled = m_voltage * VREF / 1024.0f;

@@ -2,15 +2,15 @@
 #include "ConductivitySensor.h"
 
 
-Conductivity::Conductivity(const uint8_t& channel) : Sensor(channel) {}
+Conductivity::Conductivity(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
 Conductivity::~Conductivity() {}
 
-void Conductivity::poll(MCP3008 *const mcp) {};
+void Conductivity::poll() {};
 
 // Function to calculate conductivity
-void Conductivity::poll(MCP3008 *const mcp, const Temperature& temp)
+void Conductivity::poll(const Temperature& temp)
 {
-    pollVoltage(mcp);
+    pollVoltage();
     //Doesn't poll voltage from temp
 
     const float ecValue = 100000.0f * m_voltage / RES2 / ECREF * k;

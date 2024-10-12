@@ -7,10 +7,10 @@
 class phSensor : public Sensor
 {
 public:
-    phSensor(const uint8_t& channel);
+    phSensor(const MCP3008& mcp, const uint8_t& channel);
     ~phSensor() override;
 
-    void poll(MCP3008 *const mcp) override;
+    void poll() override;
     void printState() const override;
 
 private:

@@ -20,22 +20,22 @@ enum mcpChannel : uint8_t
     TDSc
 };
 
-void setup() { Serial.begin(115200); }
+void setup() { Serial.begin(9600); }
 
 void loop()
 {
     MCP3008         mcp (MCP_CLOCK_PIN, MCP_MOSI_PIN, MCP_MISO_PIN, MCP_CS_PIN);
     
-    phSensor        ph  (mcpChannel::PH);
-    Temperature     te  (mcpChannel::TE);
-    TDS             tds (mcpChannel::TDSc);
-    Conductivity    ec  (mcpChannel::EC);
+    phSensor        ph  (mcp, mcpChannel::PH);
+    Temperature     te  (mcp, mcpChannel::TE);
+    TDS             tds (mcp, mcpChannel::TDSc);
+    Conductivity    ec  (mcp, mcpChannel::EC);
 
     // Read sensor values
-    te.poll(&mcp);
-    ph.poll(&mcp);
-    tds.poll(&mcp, te);
-    ec.poll(&mcp, te);
+    te.poll();
+    ph.poll();
+    tds.poll(te);
+    ec.poll(te);
 
     // Output sensor data
     /*
@@ -45,7 +45,7 @@ void loop()
     ec.printState();
     */
 
-   sendToXbee(ph, te, tds, ec);
+    sendToXbee(ph, te, tds, ec);
 
     delay(1000);
 }

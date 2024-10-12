@@ -8,13 +8,13 @@
 class TDS : public Sensor
 {
 private:
-    void poll(MCP3008 *const mcp) override;
+    void poll() override;
 
 public:
-    TDS(const uint8_t& channel);
+    TDS(const MCP3008& mcp, const uint8_t& channel);
     ~TDS() override;
 
-    void poll(MCP3008 *const mcp, const Temperature& temp);
+    void poll(const Temperature& temp);
     void printState() const override;
 };
 

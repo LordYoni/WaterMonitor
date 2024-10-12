@@ -2,15 +2,15 @@
 #include "tdsSensor.h"
 
 
-TDS::TDS(const uint8_t& channel) : Sensor(channel) {}
+TDS::TDS(const MCP3008& mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
 TDS::~TDS() {}
 
-void TDS::poll(MCP3008 *const mcp) {};
+void TDS::poll() {};
 
 // Function to calculate TDS value
-void TDS::poll(MCP3008 *const mcp, const Temperature& temp)
+void TDS::poll(const Temperature& temp)
 {
-    pollVoltage(mcp);
+    pollVoltage();
     //Doesn't poll voltage from temp
     
     const float compensationCoefficient = 1.0f + 0.02f * (temp.getValue() - 25.0f);
