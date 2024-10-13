@@ -1,4 +1,5 @@
 import serial
+import mysql.connector as MC
 
 def add_comma(arr):
     if arr < 10:
@@ -20,6 +21,25 @@ serial_in = serial.Serial('/dev/ttyUSB0', 9600)  # ,serial.EIGHTBITS,serial.PARI
 # Resetting the output buffer (necessary?)
 serial_in.reset_output_buffer()
 
+def insert_data(tds, ph, oxygen, conductivity, temperature):
+    query = """
+        INSERT INTO Data (TDS, pH, Oxygen, Conductivity, Temperature)
+        VALUES (%s, %s, %s, %s, %s)
+    """
+    args = (tds, ph, oxygen, conductivity, temperature)
+
+    try:
+        conn = MC.connect(host='localhost', database='WaterData', user='dbaccess', password='')
+        cursor = conn.cursor()
+        cursor.execute(query, args)
+        conn.commit()
+        print("Data inserted successfully")
+    except MC.Error as err:
+        print("Error while inserting data:", err)
+    finally:
+        cursor.close()
+        conn.close()
+        
 while True:
     # Resetting the input buffer
     serial_in.reset_input_buffer()
@@ -67,7 +87,7 @@ while True:
 
                 print("Data received successfully\n")
 
-                # TODO: send data to database
+                insert_data(tds, ph, ox, ec, temperature)
 
             else:
                 print("Checksum error")
