@@ -3,6 +3,23 @@ window.onload = function () {
   setInterval(fetchData, 5000); // Refresh data every 5 seconds
 };
 
+function timeSince(lastUpdate) {
+  const now = new Date();
+  const updateTime = new Date(lastUpdate.replace(" ", "T"));
+  const diffInMs = now - updateTime;
+  const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}m`;
+  } else if (diffInMinutes < 1440) {
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    return `${diffInHours}h`;
+  } else {
+    const diffInDays = Math.floor(diffInMinutes / 60 / 24);
+    return `${diffInDays}d`;
+  }
+}
+
 function fetchData() {
   fetch("value.php")
     .then((response) => {
@@ -36,7 +53,11 @@ function fetchData() {
           value: `${latestEntry.Temperature} °C`,
           icon: "🌡️",
         },
-        { label: "Last update", value: "30m", icon: "⏱️" },
+        {
+          label: "Last update",
+          value: timeSince(latestEntry.Time),
+          icon: "⏱️",
+        },
         { label: "Status", value: "Running", icon: "✔️" },
       ];
 
