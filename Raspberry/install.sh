@@ -207,7 +207,7 @@ echo "alias webfile='cd /var/www/html'" >> $HOME/.bashrc
 echo "alias webupdate='sudo curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/index.html && sudo curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/script.js && sudo curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/style.css && sudo curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/value.php'" >> $HOME/.bashrc
 
 echo "fastfetch" >> $HOME/.bashrc
-source .bashrc
+source $HOME/.bashrc
 
 # Clear the terminal screen
 clear
