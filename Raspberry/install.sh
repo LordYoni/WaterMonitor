@@ -49,8 +49,17 @@ sudo chown -R "$WEB_USER" /var/www/html
 # Install MariaDB
 install_if_not_exists mariadb-server
 
-# Install PHP and phpMyAdmin
+# Install PHP 
 install_if_not_exists php
+
+# Configure phpMyAdmin without GUI prompts
+echo "Configuring phpMyAdmin installation..."
+echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password ton_mot_de_passe_admin" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password ton_mot_de_passe_phpmyadmin" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
+
+# Install phpMyAdmin
 install_if_not_exists phpmyadmin
 
 # File to store user information
