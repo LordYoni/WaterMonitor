@@ -187,6 +187,9 @@ echo "DB_NAME=$DB_NAME" >> "$ENV_FILE"
 echo "DB_HOST=localhost" >> "$ENV_FILE"
 echo "DB_PORT=3306" >> "$ENV_FILE"
 
+sudo chown "$WEB_USER":"$WEB_USER" "$HOME/Scripts/.env"
+sudo chmod 600 "$HOME/Scripts/.env"
+
 # Download Fastfetch
 echo "Downloading Fastfetch..."
 wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.27.1/fastfetch-linux-aarch64.deb

@@ -3,6 +3,7 @@ window.onload = function () {
   setInterval(fetchData, 5000); // Refresh data every 5 seconds
 };
 
+// Function to calculate the time since the last update
 function timeSince(lastUpdate) {
   const now = new Date();
   const updateTime = new Date(lastUpdate.replace(" ", "T"));
@@ -20,13 +21,14 @@ function timeSince(lastUpdate) {
   }
 }
 
+// Function to calculate the state of the system
 function state(lastUpdate) {
   const now = new Date();
   const updateTime = new Date(lastUpdate.replace(" ", "T"));
   const diffInMs = now - updateTime;
   const diffInHours = diffInMs / 1000 / 60 / 60;
 
-  if (diffInHours < 5) {
+  if (diffInHours < 3) {
     return "Running";
   } else {
     return "Not running";
