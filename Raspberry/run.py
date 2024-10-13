@@ -44,7 +44,7 @@ while True:
             # Verifying the checksum
             if clc_checksum == array_in[-2]:
                 # Converting data to usable values
-                temperature = float(str(int.from_bytes([array_in[1]], byteorder='big', signed=True)) + "." + str(array_in[2]))
+                temperature = float(str(int.from_bytes([array_in[1]], byteorder='big', signed=True)) + add_comma(array_in[2]))
                 ph = float(str(array_in[3]) + add_comma(array_in[4]))
 
                 temp = str(array_in[5] * 256 + array_in[6])
