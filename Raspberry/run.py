@@ -1,5 +1,9 @@
 import serial
 import mysql.connector as MC
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def add_comma(arr):
     if arr < 10:
@@ -29,7 +33,12 @@ def insert_data(tds, ph, oxygen, conductivity, temperature):
     args = (tds, ph, oxygen, conductivity, temperature)
 
     try:
-        conn = MC.connect(host='localhost', database='WaterData', user='dbaccess', password='')
+        conn = MC.connect(
+            host=os.getenv('DB_HOST'),
+            database=os.getenv('DB_NAME'),
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASSWORD')
+        )
         cursor = conn.cursor()
         cursor.execute(query, args)
         conn.commit()
