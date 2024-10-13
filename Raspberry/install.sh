@@ -119,7 +119,9 @@ sudo chmod 600 /var/www/html/config.php
 echo "Configuring MariaDB..."
 sudo mysql -u root <<EOF
 GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;
+GRANT INSERT ON *.* TO 'dbaccess'@'localhost';
 FLUSH PRIVILEGES;
+
 
 -- Create the database and table
 
@@ -165,7 +167,7 @@ install_if_not_exists python3-pip
 echo "Creating Python virtual environment and installing dependencies..."
 python3 -m venv $HOME/venv
 source $HOME/venv/bin/activate
-pip install pyserial mysql-connector-python
+pip install pyserial mysql-connector-python python-dotenv
 
 # Download run.py to ~/Scripts
 echo "Downloading run.py..."
@@ -174,6 +176,15 @@ if [ ! -d "$HOME/Scripts" ]; then
     mkdir -p "$HOME/Scripts"
 fi
 curl -o $HOME/Scripts/run.py https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/run.py
+
+ENV_FILE="$HOME/Scripts/.env
+
+# Ajouter les informations de la base de données dans le fichier .env
+echo "DB_USER=dbaccess" > "$ENV_FILE"
+echo "DB_PASSWORD=" >> "$ENV_FILE"
+echo "DB_NAME=$DB_NAME" >> "$ENV_FILE"
+echo "DB_HOST=localhost" >> "$ENV_FILE"
+echo "DB_PORT=3306" >> "$ENV_FILE"
 
 # Download Fastfetch
 echo "Downloading Fastfetch..."
