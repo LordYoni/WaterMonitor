@@ -4,13 +4,15 @@
 #include "sensors/Temperature.h"
 #include "sensors/tdsSensor.h"
 #include "sensors/ConductivitySensor.h"
+#include "sensors/Oxygen.h"
 
 inline void sendToXbee
 (
     const phSensor&     ph,
     const Temperature&  te,
     const TDS&          tds,
-    const Conductivity& ec
+    const Conductivity& ec,
+    const Oxygen&       ox
 )
 {
     const uint8_t START_BYTE    = 0xa0;
@@ -29,6 +31,9 @@ inline void sendToXbee
         ec_int1,
         ec_int2,
         ec_dec,
+        ox_int1,
+        ox_int2,
+        ox_dec,
         checksum,
         end
     };
@@ -39,10 +44,13 @@ inline void sendToXbee
     //Ph: 1 byte unsigned integer, 1 byte decimal
     //tds 2 bytes unsigned integer, 1 byte decimal
     //ec: 2 bytes unsigned integer, 1 byte decimal
+    //ox: 2 bytes unsigned integer, 1 byte decimal
     //1 checksum byte
     //1 stop byte
 
-    uint8_t arr[13];
+    const uint8_t NUMBER_OF_BYTES = 16;
+
+    uint8_t arr[NUMBER_OF_BYTES];
 
     arr[start]      = START_BYTE;
 
@@ -52,6 +60,7 @@ inline void sendToXbee
     writeToArray(arr, arr_index, ph, 2);
     writeToArray(arr, arr_index, tds, 3);
     writeToArray(arr, arr_index, ec, 3);
+    writeToArray(arr, arr_index, ox, 3);
 
     //calculate checksum
     uint8_t chk = 0;
@@ -63,7 +72,7 @@ inline void sendToXbee
 
     arr[end] = STOP_BYTE;
 
-    for (uint8_t i = 0; i < 13; i++)
+    for (uint8_t i = 0; i < NUMBER_OF_BYTES; i++)
         Serial.write(arr[i]);
 }
 
