@@ -52,16 +52,6 @@ install_if_not_exists mariadb-server
 # Install PHP 
 install_if_not_exists php
 
-# Configure phpMyAdmin without GUI prompts
-echo "Configuring phpMyAdmin installation..."
-echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
-echo "phpmyadmin phpmyadmin/mysql/admin-pass password ton_mot_de_passe_admin" | sudo debconf-set-selections
-echo "phpmyadmin phpmyadmin/mysql/app-pass password ton_mot_de_passe_phpmyadmin" | sudo debconf-set-selections
-echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
-
-# Install phpMyAdmin
-install_if_not_exists phpmyadmin
-
 # File to store user information
 USER_INFO_FILE="$HOME/.db_user_info"
 
@@ -111,6 +101,16 @@ else
     echo "DB_PASSWORD=$DB_PASSWORD" >> "$USER_INFO_FILE"
     echo "DB_NAME=$DB_NAME" >> "$USER_INFO_FILE"
 fi
+
+# Configure phpMyAdmin without GUI prompts
+echo "Configuring phpMyAdmin installation..."
+echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password $DB_PASSWORD " | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password $DB_PASSWORD" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
+
+# Install phpMyAdmin
+install_if_not_exists phpmyadmin
 
 # Create the config.php file
 CONFIG_FILE="/var/www/html/config.php"
