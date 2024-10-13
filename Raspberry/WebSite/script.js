@@ -20,6 +20,19 @@ function timeSince(lastUpdate) {
   }
 }
 
+function state(lastUpdate) {
+  const now = new Date();
+  const updateTime = new Date(lastUpdate.replace(" ", "T"));
+  const diffInMs = now - updateTime;
+  const diffInHours = diffInMs / 1000 / 60 / 60;
+
+  if (diffInHours < 5) {
+    return "Running";
+  } else {
+    return "Not running";
+  }
+}
+
 function fetchData() {
   fetch("value.php")
     .then((response) => {
@@ -58,7 +71,11 @@ function fetchData() {
           value: timeSince(latestEntry.Time),
           icon: "⏱️",
         },
-        { label: "Status", value: "Running", icon: "✔️" },
+        {
+          label: "Status",
+          value: state(latestEntry.Time),
+          icon: state(latestEntry.Time) === "Running" ? "✔️" : "❌",
+        },
       ];
 
       // Create a card for each piece of information
