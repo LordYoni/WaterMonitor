@@ -1,13 +1,14 @@
 
 #include <MCP3008.h>
 
-#include "sensors/baseSensorClass.cpp"
-#include "sensors/PhSensor.cpp"
-#include "sensors/Temperature.cpp"
-#include "sensors/tdsSensor.cpp"
-#include "sensors/ConductivitySensor.cpp"
-#include "sensors/Oxygen.cpp"
+#include "../sensors/baseSensorClass.cpp"
+#include "../sensors/PhSensor.cpp"
+#include "../sensors/Temperature.cpp"
+#include "../sensors/tdsSensor.cpp"
+#include "../sensors/ConductivitySensor.cpp"
+#include "../sensors/Oxygen.cpp"
 
+#include "../stream.cpp"
 
 const uint8_t MCP_CS_PIN = 5;
 const uint8_t MCP_CLOCK_PIN = 18;

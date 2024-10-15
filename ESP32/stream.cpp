@@ -6,6 +6,18 @@
 #include "sensors/ConductivitySensor.h"
 #include "sensors/Oxygen.h"
 
+uint8_t getInteger1 (const float& inp);
+uint8_t getInteger2 (const float& inp);
+uint8_t getDecimal  (const float& inp);
+
+void writeToArray
+(
+    uint8_t *arr,
+    uint8_t &index,
+    const Sensor& sen,
+    const uint8_t& size
+);
+
 inline void sendToXbee
 (
     const phSensor&     ph,
