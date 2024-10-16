@@ -5,14 +5,14 @@
 #include "Temperature.h"
 
 
-class TDS : public Sensor
+class tdsSensor : public Sensor
 {
 private:
-    const Temperature& m_tempeature;
+    const TemperatureSensor& m_tempeature;
 
 public:
-    TDS(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp);
-    ~TDS() override;
+    tdsSensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp);
+    ~tdsSensor() override;
 
     void poll();
     void printState() const override;

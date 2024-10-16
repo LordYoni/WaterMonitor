@@ -10,15 +10,18 @@ private:
     //Cannot be declared as a const reference because the
     //readADC() method is not declared as const even though
     //it doesn't modify any of its class members.
+
+    //Const ptr to an MCP object
     MCP3008 *const m_mcp;
 
+    //MCP channel of sensor
     const uint8_t m_channel;
 
 protected:
     float m_voltage;
     float m_value;
 
-    Sensor(MCP3008 *const mcp, const uint8_t& channel);
+    Sensor(MCP3008 *const mcp, const uint8_t &channel);
 
     void pollVoltage();
 

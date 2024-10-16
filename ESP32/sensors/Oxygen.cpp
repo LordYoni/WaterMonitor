@@ -2,17 +2,17 @@
 #include "Oxygen.h"
 
 
-Oxygen::Oxygen(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp)
+OxygenSensor::OxygenSensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp)
     : Sensor(mcp, channel), m_temperature(temp) {}
 
-Oxygen::~Oxygen() {}
+OxygenSensor::~OxygenSensor() {}
 
 //Single-point calibration Mode=0
 //Two-point calibration Mode=1
 #define TWO_POINT_CALIBRATION 1
 
 // Function to calculate oxygen
-void Oxygen::poll()
+void OxygenSensor::poll()
 {
     pollVoltage();
     //Doesn't poll voltage from temp
@@ -35,7 +35,7 @@ void Oxygen::poll()
 
 }
 
-void Oxygen::printState() const
+void OxygenSensor::printState() const
 {
     Serial.print("DO: ");
     Serial.print(m_value);

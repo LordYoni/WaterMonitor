@@ -2,11 +2,11 @@
 #include "PhSensor.h"
 
 
-phSensor::phSensor(MCP3008 *const mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
-phSensor::~phSensor() {}
+PhSensor::PhSensor(MCP3008 *const mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
+PhSensor::~PhSensor() {}
 
 // Function to calculate pH value
-void phSensor::poll()
+void PhSensor::poll()
 {
     pollVoltage();
 
@@ -17,7 +17,7 @@ void phSensor::poll()
     m_value = 3.5f * m_voltage + OFFSET;
 }
 
-void phSensor::printState() const
+void PhSensor::printState() const
 {
     Serial.print("pH: ");
     Serial.println(m_value);

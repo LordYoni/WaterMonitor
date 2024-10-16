@@ -2,13 +2,13 @@
 #include "ConductivitySensor.h"
 
 
-Conductivity::Conductivity(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp)
+ConductivitySensor::ConductivitySensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temp)
     : Sensor(mcp, channel), m_temperature(temp) {}
 
-Conductivity::~Conductivity() {}
+ConductivitySensor::~ConductivitySensor() {}
 
 // Function to calculate conductivity
-void Conductivity::poll()
+void ConductivitySensor::poll()
 {
     pollVoltage();
     //Doesn't poll voltage from temp
@@ -17,7 +17,7 @@ void Conductivity::poll()
     m_value = ecValue / (1.0f + 0.02f * (m_temperature.getValue() - 25.0f));
 }
 
-void Conductivity::printState() const
+void ConductivitySensor::printState() const
 {
     Serial.print("EC Voltage: ");
     Serial.print(m_voltage);

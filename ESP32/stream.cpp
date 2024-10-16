@@ -20,11 +20,11 @@ void writeToArray
 
 inline void sendToXbee
 (
-    const phSensor&     ph,
-    const Temperature&  te,
-    const TDS&          tds,
-    const Conductivity& ec,
-    const Oxygen&       ox
+    const PhSensor&     ph,
+    const TemperatureSensor&  te,
+    const tdsSensor&          tds,
+    const ConductivitySensor& ec,
+    const OxygenSensor&       ox
 )
 {
     const uint8_t START_BYTE    = 0xa0;

@@ -5,14 +5,14 @@
 #include "Temperature.h"
 
 
-class Conductivity : public Sensor
+class ConductivitySensor : public Sensor
 {
 private:
-    const Temperature& m_temperature;
+    const TemperatureSensor& m_temperature;
 
 public:
-    Conductivity(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp);
-    ~Conductivity() override;
+    ConductivitySensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp);
+    ~ConductivitySensor() override;
 
     void poll();
     void printState() const override;

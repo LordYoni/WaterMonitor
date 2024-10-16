@@ -5,14 +5,14 @@
 #include "Temperature.h"
 
 
-class Oxygen : public Sensor
+class OxygenSensor : public Sensor
 {
 private:
-    const Temperature& m_temperature;
+    const TemperatureSensor& m_temperature;
 
 public:
-    Oxygen(MCP3008 *const mcp, const uint8_t& channel, const Temperature& temp);
-    ~Oxygen() override;
+    OxygenSensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp);
+    ~OxygenSensor() override;
 
     void poll();
     void printState() const override;

@@ -2,7 +2,7 @@
 #include "baseSensorClass.h"
 
 
-Sensor::Sensor(MCP3008 *const mcp, const uint8_t& channel) : m_mcp(mcp), m_channel(channel) {}
+Sensor::Sensor(MCP3008 *const mcp, const uint8_t &channel) : m_mcp(mcp), m_channel(channel) {}
 Sensor::~Sensor() {}
 
 void Sensor::pollVoltage()
