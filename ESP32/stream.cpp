@@ -88,9 +88,9 @@ inline void sendToXbee
         Serial.write(arr[i]);
 }
 
-uint8_t getInteger1 (const float& inp)  { return uint8_t(inp / 100); }
-uint8_t getInteger2 (const float& inp)  { return uint8_t(inp); }
-uint8_t getDecimal  (const float& inp)  { return uint8_t(inp * 100); }
+uint8_t getInteger1 (const float& inp)  { return uint8_t( inp / 256                  ); }
+uint8_t getInteger2 (const float& inp)  { return uint8_t( (uint8_t)inp % 256         ); }
+uint8_t getDecimal  (const float& inp)  { return uint8_t( (inp - (uint16_t)inp) * 100); }
 
 void writeToArray
 (
