@@ -173,10 +173,10 @@ echo "Restarting Apache..."
 sudo service apache2 restart  
 
 # Install website files
-curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/index.html  
-curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/script.js  
-curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/style.css  
-curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/WebSite/value.php  
+curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/index.html  
+curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/script.js  
+curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/style.css  
+curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/value.php  
 
 # Change ownership and set permissions for website files
 sudo chown www-data:www-data /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php  

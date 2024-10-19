@@ -6,103 +6,100 @@
 #include "sensors/ConductivitySensor.h"
 #include "sensors/Oxygen.h"
 
-uint8_t getInteger1 (const float& inp);
-uint8_t getInteger2 (const float& inp);
-uint8_t getDecimal  (const float& inp);
+uint8_t getMSB      (const float &number);
+uint8_t getLSB      (const float &number);
+uint8_t getDecimal  (const float &number);
 
 void writeToArray
 (
-    uint8_t *arr,
-    uint8_t &index,
-    const Sensor& sen,
-    const uint8_t& size
+    uint8_t         *array,
+    uint8_t         &index,
+    const Sensor    &sensor,
+    const uint8_t   &size
 );
 
 inline void sendToXbee
 (
-    const phSensor&     ph,
-    const Temperature&  te,
-    const TDS&          tds,
-    const Conductivity& ec,
-    const Oxygen&       ox
+    const PhSensor              &ph,
+    const TemperatureSensor     &temperature,
+    const tdsSensor             &tds,
+    const ConductivitySensor    &conductivity,
+    const OxygenSensor          &oxygen
 )
 {
-    const uint8_t START_BYTE    = 0xa0;
-    const uint8_t STOP_BYTE     = 0x0a;
-
+    //All numbers are unsigned, except temperature_LSB
     enum arrayIndex : uint8_t
     {
         start,
-        temp_int,
-        temp_dec,
-        ph_int1,
-        ph_dec,
-        tds_int1,
-        tds_int2,
-        tds_dec,
-        ec_int1,
-        ec_int2,
-        ec_dec,
-        ox_int1,
-        ox_int2,
-        ox_dec,
+
+        temperature_LSB,
+        temperature_dec,
+        
+        pH_LSB,
+        pH_dec,
+        
+        TDS_MSB,
+        TDS_LSB,
+        TDS_dec,
+        
+        conductivity_MSB,
+        conductivity_LSB,
+        conductivity_dec,
+        
+        oxygen_MSB,
+        oxygen_LSB,
+        oxygen_dec,
+        
         checksum,
         end
     };
 
+    const uint8_t ARRAY_SIZE    = arrayIndex::end + 1;
+    const uint8_t START_BYTE    = 0xa0;
+    const uint8_t STOP_BYTE     = 0x0a;
 
-    //1 start byte
-    //te: 1 byte signed integer, 1 byte decimal
-    //Ph: 1 byte unsigned integer, 1 byte decimal
-    //tds 2 bytes unsigned integer, 1 byte decimal
-    //ec: 2 bytes unsigned integer, 1 byte decimal
-    //ox: 2 bytes unsigned integer, 1 byte decimal
-    //1 checksum byte
-    //1 stop byte
+    uint8_t checksum_var = 0;
+    uint8_t array_index;
 
-    const uint8_t NUMBER_OF_BYTES = 16;
+    uint8_t array[ARRAY_SIZE];
 
-    uint8_t arr[NUMBER_OF_BYTES];
+    array[start] = START_BYTE;
 
-    arr[start]      = START_BYTE;
+    array_index = arrayIndex::start + 1;
 
-    uint8_t arr_index = temp_int;
-
-    writeToArray(arr, arr_index, te, 2);
-    writeToArray(arr, arr_index, ph, 2);
-    writeToArray(arr, arr_index, tds, 3);
-    writeToArray(arr, arr_index, ec, 3);
-    writeToArray(arr, arr_index, ox, 3);
+    writeToArray(array, array_index, temperature,   2);
+    writeToArray(array, array_index, ph,            2);
+    writeToArray(array, array_index, tds,           3);
+    writeToArray(array, array_index, conductivity,  3);
+    writeToArray(array, array_index, oxygen,        3);
 
     //calculate checksum
-    uint8_t chk = 0;
-
-    for(uint8_t i = arrayIndex::temp_int; i != arrayIndex::checksum; i++)
-        chk += arr[i];
+    for(uint8_t i = arrayIndex::start + 1; i != arrayIndex::checksum; i++)
+        checksum_var += array[i];
     
-    arr[checksum] = chk;
+    array[arrayIndex::checksum] = checksum_var;
+    array[arrayIndex::end]      = STOP_BYTE;
 
-    arr[end] = STOP_BYTE;
-
-    for (uint8_t i = 0; i < NUMBER_OF_BYTES; i++)
-        Serial.write(arr[i]);
+    //send to Xbee
+    for (uint8_t i = 0; i < ARRAY_SIZE; i++)
+        Serial.write(array[i]);
 }
 
-uint8_t getInteger1 (const float& inp)  { return uint8_t( inp / 256                  ); }
-uint8_t getInteger2 (const float& inp)  { return uint8_t( (uint8_t)inp % 256         ); }
-uint8_t getDecimal  (const float& inp)  { return uint8_t( (inp - (uint16_t)inp) * 100); }
+uint8_t getMSB      (const float& number)   { return uint8_t( number / 256                      ); }
+uint8_t getLSB      (const float& number)   { return uint8_t( (uint8_t)number % 256             ); }
+uint8_t getDecimal  (const float& number)   { return uint8_t( (number - (uint16_t)number) * 100 ); }
 
 void writeToArray
 (
-    uint8_t *arr,
-    uint8_t &index,
-    const Sensor& sen,
-    const uint8_t& size
+            uint8_t     *array,
+            uint8_t     &index,
+    const   Sensor      &sensor,
+    const   uint8_t     &size
 )
 {
     if (size == 3)
-        arr[index++]    = getInteger1   (sen.getValue());
+        array[index++] = getMSB (sensor.getValue());
 
-    arr[index++]    = getInteger2   (sen.getValue());
-    arr[index++]    = getDecimal    (sen.getValue());
+    array[index++] = getLSB     (sensor.getValue());
+    array[index++] = getDecimal (sensor.getValue());
 }

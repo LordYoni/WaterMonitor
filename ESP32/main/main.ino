@@ -1,5 +1,5 @@
 
-#include <MCP3008.h>
+#include <MCP3008.h> //TODO: get rid of this library
 
 #include "../sensors/baseSensorClass.cpp"
 #include "../sensors/PhSensor.cpp"
@@ -10,49 +10,60 @@
 
 #include "../stream.cpp"
 
-const uint8_t MCP_CS_PIN = 5;
-const uint8_t MCP_CLOCK_PIN = 18;
-const uint8_t MCP_MOSI_PIN = 23;
-const uint8_t MCP_MISO_PIN = 19;
-
-enum mcpChannel : uint8_t
-{
-    EC,
-    TE,
-    PH,
-    TDSc,
-    OX
-};
+//Defines whether we want to output data to Xbee or
+//in a readable format in the serial monitor
+#define sendToSerialMonitor true
 
 void setup() { Serial.begin(9600); }
 
 void loop()
 {
-    MCP3008         mcp (MCP_CLOCK_PIN, MCP_MOSI_PIN, MCP_MISO_PIN, MCP_CS_PIN);
-    
-    phSensor        ph  (&mcp, mcpChannel::PH);
-    Temperature     te  (&mcp, mcpChannel::TE);
-    TDS             tds (&mcp, mcpChannel::TDSc, te);
-    Conductivity    ec  (&mcp, mcpChannel::EC, te);
-    Oxygen          ox  (&mcp, mcpChannel::OX, te);
+    enum MCP_PIN : uint8_t
+    {
+        CS      = 5,
+        CLOCK   = 18,
+        MOSI    = 23,
+        MISO    = 19
+    };
 
-    // Read sensor values
-    te.poll();
+    enum MCP_CHANNEL : uint8_t
+    {
+        CONDUCTIVITY,
+        TEMPERATURE,
+        PH,
+        TDS,
+        OXYGEN
+    };
+
+    MCP3008             mcp (MCP_PIN::CLOCK, MCP_PIN::MOSI, MCP_PIN::MISO, MCP_PIN::CS);
+    
+    PhSensor            ph              (&mcp, MCP_CHANNEL::PH                         );
+    TemperatureSensor   temperature     (&mcp, MCP_CHANNEL::TEMPERATURE                );
+    tdsSensor           tds             (&mcp, MCP_CHANNEL::TDS,            temperature);
+    ConductivitySensor  conductivity    (&mcp, MCP_CHANNEL::CONDUCTIVITY,   temperature);
+    OxygenSensor        oxygen          (&mcp, MCP_CHANNEL::OXYGEN,         temperature);
+
+    //Read sensor values
+    temperature.poll();
     ph.poll();
     tds.poll();
-    ec.poll();
-    ox.poll();
+    conductivity.poll();
+    oxygen.poll();
 
-    // Output sensor data
-    /*
-    te.printState();
-    ph.printState();
-    tds.printState();
-    ec.printState();
-    ox.printState();
-    */
+    #if sendToSerialMonitor == true
 
-    sendToXbee(ph, te, tds, ec, ox);
+        //Output sensor data to serial monitor
+        temperature.printState();
+        ph.printState();
+        tds.printState();
+        conductivity.printState();
+        oxygen.printState();
+
+    #else
+
+        sendToXbee(ph, temperature, tds, conductivity, oxygen);
+
+    #endif
 
     delay(1000);
 }

@@ -4,17 +4,17 @@
 #include "baseSensorClass.h"
 
 
-class phSensor : public Sensor
+class PhSensor : public Sensor
 {
 public:
-    phSensor(MCP3008 *const, const uint8_t& channel);
-    ~phSensor() override;
+    PhSensor(MCP3008 *const mcp, const uint8_t &channel);
+    ~PhSensor() override;
 
     void poll() override;
     void printState() const override;
 
 private:
-    // Constant for pH calculation
+    //Constant for pH calculation
     const float OFFSET = -5.0f;
 };
 
