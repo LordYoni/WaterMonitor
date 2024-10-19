@@ -8,17 +8,17 @@
 class ConductivitySensor : public Sensor
 {
 private:
-    const TemperatureSensor& m_temperature;
+    const TemperatureSensor &m_temperature;
 
 public:
-    ConductivitySensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp);
+    ConductivitySensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature);
     ~ConductivitySensor() override;
 
     void poll();
     void printState() const override;
 
 private:
-    // Constants for Conductivity calculations
+    //Constants for Conductivity calculation
     const float k = 1.0f;
     const float RES2 = 820.0f;
     const float ECREF = 200.0f;

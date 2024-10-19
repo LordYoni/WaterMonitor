@@ -7,12 +7,12 @@
 class Sensor
 {
 private:
+    //Const ptr to an MCP3008 object
+    MCP3008 *const m_mcp;
+
     //Cannot be declared as a const reference because the
     //readADC() method is not declared as const even though
     //it doesn't modify any of its class members.
-
-    //Const ptr to an MCP object
-    MCP3008 *const m_mcp;
 
     //MCP channel of sensor
     const uint8_t m_channel;
@@ -35,7 +35,7 @@ public:
 
 protected:
     const uint16_t ADC_RESOLUTION = 1024;
-    const float VREF = ((2.0f / 3.0f) * 5.0f); // Reference voltage for MCP3008 ((2/3) * 5v = 3.3v)
+    const float VREF = ((2.0f / 3.0f) * 5.0f); //Reference voltage for MCP3008 ((2/3) * 5v = 3.3v)
 };
 
 #endif

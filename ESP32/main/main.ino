@@ -10,13 +10,14 @@
 
 #include "../stream.cpp"
 
+//Defines whether we want to output data to Xbee or
+//in a readable format in the serial monitor
 #define sendToSerialMonitor true
 
 void setup() { Serial.begin(9600); }
 
 void loop()
 {
-
     enum MCP_PIN : uint8_t
     {
         CS      = 5,
@@ -42,25 +43,25 @@ void loop()
     ConductivitySensor  conductivity    (&mcp, MCP_CHANNEL::CONDUCTIVITY,   temperature);
     OxygenSensor        oxygen          (&mcp, MCP_CHANNEL::OXYGEN,         temperature);
 
-    // Read sensor values
+    //Read sensor values
     temperature.poll();
     ph.poll();
     tds.poll();
     conductivity.poll();
     oxygen.poll();
 
-    #if sendToSerialMonitor == TRUE
+    #if sendToSerialMonitor == true
 
-    // Output sensor data
-    temperature.printState();
-    ph.printState();
-    tds.printState();
-    conductivity.printState();
-    oxygen.printState();
+        //Output sensor data to serial monitor
+        temperature.printState();
+        ph.printState();
+        tds.printState();
+        conductivity.printState();
+        oxygen.printState();
 
     #else
 
-    sendToXbee(ph, temperature, tds, conductivity, oxygen);
+        sendToXbee(ph, temperature, tds, conductivity, oxygen);
 
     #endif
 

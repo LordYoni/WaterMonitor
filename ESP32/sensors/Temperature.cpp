@@ -2,10 +2,10 @@
 #include "Temperature.h"
 
 
-TemperatureSensor::TemperatureSensor(MCP3008 *const mcp, const uint8_t& channel) : Sensor(mcp, channel) {}
+TemperatureSensor::TemperatureSensor(MCP3008 *const mcp, const uint8_t &channel) : Sensor(mcp, channel) {}
 TemperatureSensor::~TemperatureSensor() {}
 
-// Function to calculate temperature from PT1000 sensor
+//Function to calculate temperature from PT1000 sensor
 void TemperatureSensor::poll()
 {
     pollVoltage();
@@ -16,7 +16,7 @@ void TemperatureSensor::poll()
 
 void TemperatureSensor::printState() const
 {
-    Serial.print("TemperatureSensor: ");
+    Serial.print(F("TemperatureSensor: "));
     Serial.print(m_value);
-    Serial.println(" °C");
+    Serial.println(F(" °C"));
 }

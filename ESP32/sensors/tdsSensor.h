@@ -11,7 +11,7 @@ private:
     const TemperatureSensor& m_tempeature;
 
 public:
-    tdsSensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp);
+    tdsSensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature);
     ~tdsSensor() override;
 
     void poll();

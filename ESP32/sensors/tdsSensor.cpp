@@ -2,12 +2,12 @@
 #include "tdsSensor.h"
 
 
-tdsSensor::tdsSensor(MCP3008 *const mcp, const uint8_t& channel, const TemperatureSensor& temp)
-    : Sensor(mcp, channel), m_tempeature(temp) {}
+tdsSensor::tdsSensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature)
+    : Sensor(mcp, channel), m_tempeature(temperature) {}
 
 tdsSensor::~tdsSensor() {}
 
-// Function to calculate TDS value
+//Function to calculate TDS value
 void tdsSensor::poll()
 {
     pollVoltage();
@@ -22,7 +22,7 @@ void tdsSensor::poll()
 
 void tdsSensor::printState() const
 {
-    Serial.print("TDS: ");
+    Serial.print(F("TDS: "));
     Serial.print(m_value);
-    Serial.println(" ppm");
+    Serial.println(F(" ppm"));
 }
