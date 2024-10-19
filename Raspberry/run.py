@@ -2,28 +2,9 @@ import serial
 import mysql.connector as MC
 from dotenv import load_dotenv
 import os
+from enum import IntEnum, auto
 
 load_dotenv()
-
-def add_comma(arr):
-    if arr < 10:
-        return str(".0" + str(arr))
-    else:
-        return str("." + str(arr))
-
-# Configuration of serial communication parameters
-timeout_sec = 3
-input_size = 16
-
-# Definition of start and end bytes
-start_byte = 0xa0
-end_byte = 0x0a
-
-# Initialization of the serial connection
-serial_in = serial.Serial('/dev/ttyUSB0', 9600)  # ,serial.EIGHTBITS,serial.PARITY_NONE,serial.STOPBITS_ONE,timeout_sec)
-
-# Resetting the output buffer (necessary?)
-serial_in.reset_output_buffer()
 
 def insert_data(tds, ph, oxygen, conductivity, temperature):
     query = """
@@ -48,55 +29,101 @@ def insert_data(tds, ph, oxygen, conductivity, temperature):
     finally:
         cursor.close()
         conn.close()
-        
+
+
+def add_comma(number):
+    if number < 10:
+        return ".0" + str(number)
+    else:
+        return "." + str(number)
+
+
+class ArrayIndex(IntEnum):
+    start = 0
+
+    temperature_LSB = auto()
+    temperature_dec = auto()
+
+    pH_LSB = auto()
+    pH_dec = auto()
+
+    TDS_MSB = auto()
+    TDS_LSB = auto()
+    TDS_dec = auto()
+
+    conductivity_MSB = auto()
+    conductivity_LSB = auto()
+    conductivity_dec = auto()
+
+    oxygen_MSB = auto()
+    oxygen_LSB = auto()
+    oxygen_dec = auto()
+
+    checksum = auto()
+    end = auto()
+
+
+expected_input_size = len(ArrayIndex)
+start_byte  = 0xa0
+end_byte    = 0x0a
+
+serial_timeout_sec = 3
+
+Xbee = serial.Serial('/dev/ttyUSB0', 9600, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_ONE, serial_timeout_sec)
+
 while True:
-    # Resetting the input buffer
-    serial_in.reset_input_buffer()
+    Xbee.reset_input_buffer()
 
-    # Reading data from the serial port
-    array_in = serial_in.read(input_size)
+    array_in = Xbee.read(input_size)
 
-    # Checking the size of the read data
-    if len(array_in) == input_size:
-
-        # Checking the start and end bytes
-        if array_in[0] == start_byte and array_in[-1] == end_byte:
-
-            # Calculating the checksum
-            clc_checksum = 0
+    if len(array_in) == expected_input_size:
+        if array_in[ArrayIndex.start.value] == start_byte and array_in[ArrayIndex.end.value] == end_byte:
             
-            for i in range(1, input_size - 2):
-                clc_checksum += array_in[i]
+            #Calculate checksum
+            checksum = 0
 
-            clc_checksum = clc_checksum % 0x100
+            for i in range(ArrayIndex.start.value + 1, ArrayIndex.checksum.value):
+                checksum += array_in[i]
+            
+            checksum = checksum % 0x100
 
-            # Verifying the checksum
-            if clc_checksum == array_in[-2]:
-                # Converting data to usable values
-                temperature = float(str(int.from_bytes([array_in[1]], byteorder='big', signed=True)) + add_comma(array_in[2]))
-                ph = float(str(array_in[3]) + add_comma(array_in[4]))
+            if checksum == array_in[ArrayIndex.checksum.value]:
 
-                temp = str(array_in[5] * 256 + array_in[6])
-                tds = float(temp + add_comma(array_in[7]))
+                #Retrieve data from array
+                
+                #Handle negative temperature                
+                temp = array_in[ArrayIndex.temperature_LSB.value]
 
-                temp = str(array_in[8] * 256 + array_in[9])
-                ec = float(temp + add_comma(array_in[10]))
+                if temp & 0x80:
+                    temp        = '-' + str((temp ^ 0xff) + 1)
+                    
+                temperature     = float(temp + add_comma( array_in[ArrayIndex.temperature_dec.value]))
+                
+                ph              = float(str(array_in[ArrayIndex.pH_LSB.value]) + add_comma(array_in[ArrayIndex.pH_dec.value]))
 
-                temp = str(array_in[11] * 256 + array_in[12])
-                ox = float(temp + add_comma(array_in[13]))
+                temp            = str(array_in[ArrayIndex.TDS_MSB.value] * 256 + array_in[ArrayIndex.TDS_LSB.value])
+                tds             = float(temp + add_comma(array_in[ArrayIndex.TDS_dec.value]))
 
-                for i in range(1, input_size - 1):
+                temp            = str(array_in[ArrayIndex.conductivity_MSB.value] * 256 + array_in[ArrayIndex.conductivity_LSB.value])
+                conductivity    = float(temp + add_comma(array_in[ArrayIndex.conductivity_dec.value]))
+
+                temp            = str(array_in[ArrayIndex.oxygen_MSB.value] * 256 + array_in[ArrayIndex.oxygen_LSB.value])
+                oxygen          = float(temp + add_comma(array_in[ArrayIndex.oxygen_dec.value]))
+
+                #TODO: failsafe for invalid values
+
+                for i in range(ArrayIndex.start.value + 1, ArrayIndex.checksum.value):
                     print(hex(array_in[i]))
+                
+                print()
 
-                print("Temperature: " + str(temperature))
-                print("pH: " + str(ph))
-                print("TDS: " + str(tds))
-                print("EC: " + str(ec))
-                print("OX: " + str(ox))
+                print("Temperature: "   + str(temperature))
+                print("pH: "            + str(ph))
+                print("TDS: "           + str(tds))
+                print("Conductivity: "  + str(conductivity))
+                print("Oxygen: "        + str(oxygen))
 
-                print("Data received successfully\n")
-
-                insert_data(tds, ph, ox, ec, temperature)
+                insert_data(tds, ph, oxygen, conductivity, temperature)
 
             else:
                 print("Checksum error")
