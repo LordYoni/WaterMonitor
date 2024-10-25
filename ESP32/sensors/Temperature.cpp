@@ -16,7 +16,7 @@ void TemperatureSensor::poll()
 
 void TemperatureSensor::printState() const
 {
-    Serial.print(F("TemperatureSensor: "));
+    Serial.print(F("Temperature: "));
     Serial.print(m_value);
     Serial.println(F(" °C"));
 }
