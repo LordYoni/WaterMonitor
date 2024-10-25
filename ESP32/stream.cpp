@@ -6,17 +6,44 @@
 #include "sensors/ConductivitySensor.h"
 #include "sensors/Oxygen.h"
 
-uint8_t getMSB      (const float &number);
-uint8_t getLSB      (const float &number);
-uint8_t getDecimal  (const float &number);
+
+float abs_float(const float &number)
+{
+    if(number < 0.0f)
+        return -number;
+
+    return number;
+}
+
+uint8_t getMSB(const float &number){ return (uint8_t)( abs_float(number) / 256 ); }
+
+uint8_t getLSB(const float &number){ return (uint8_t)abs_float(number); }
+
+uint8_t getDecimal(float number)
+{
+    number = abs_float(number) + 0.005f;    //Absolute value + rounding
+    number -= (float)(uint16_t)number;      //Discard integer part
+    number *= 100.0f;                       //Move the first two decimal digits
+
+    return (uint8_t)number;                 //Cast to a byte
+}
 
 void writeToArray
 (
-    uint8_t         *array,
-    uint8_t         &index,
-    const Sensor    &sensor,
-    const uint8_t   &size
-);
+            uint8_t     *array,
+            uint8_t     &index,
+    const   Sensor      &sensor,
+    const   uint8_t     &size
+)
+{
+    if(size == 3)
+        array[index++] = getMSB (sensor.getValue());
+
+    array[index++] = getLSB     (sensor.getValue());
+    array[index++] = getDecimal (sensor.getValue());
+}
+
+
 
 inline void sendToXbee
 (
@@ -83,23 +110,4 @@ inline void sendToXbee
     //send to Xbee
     for (uint8_t i = 0; i < ARRAY_SIZE; i++)
         Serial.write(array[i]);
-}
-
-uint8_t getMSB      (const float& number)   { return uint8_t( number / 256                      ); }
-uint8_t getLSB      (const float& number)   { return uint8_t( (uint8_t)number % 256             ); }
-uint8_t getDecimal  (const float& number)   { return uint8_t( (number - (uint16_t)number) * 100 ); }
-
-void writeToArray
-(
-            uint8_t     *array,
-            uint8_t     &index,
-    const   Sensor      &sensor,
-    const   uint8_t     &size
-)
-{
-    if (size == 3)
-        array[index++] = getMSB (sensor.getValue());
-
-    array[index++] = getLSB     (sensor.getValue());
-    array[index++] = getDecimal (sensor.getValue());
 }
