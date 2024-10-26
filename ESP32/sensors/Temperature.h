@@ -15,10 +15,10 @@ public:
 
 private:
     //Constants for temperature calculations
-    const float GDIFF   = 30.0f / 1.8f;
-    const float VR0     = 0.223f;
-    const float G0      = 2.0f;
-    const float I       = 1.24f / 10000.0f;
+    static constexpr float GDIFF   = 30.0f / 1.8f;
+    static constexpr float VR0     = 0.223f;
+    static constexpr float G0      = 2.0f;
+    static constexpr float I       = 1.24f / 10000.0f;
 };
 
 #endif

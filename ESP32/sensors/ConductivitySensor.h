@@ -19,9 +19,9 @@ public:
 
 private:
     //Constants for Conductivity calculation
-    const float k = 1.0f;
-    const float RES2 = 820.0f;
-    const float ECREF = 200.0f;
+    static constexpr float k = 1.0f;
+    static constexpr float RES2 = 820.0f;
+    static constexpr float ECREF = 200.0f;
 };
 
 #endif

@@ -34,8 +34,8 @@ public:
     float getValue() const;
 
 protected:
-    const uint16_t ADC_RESOLUTION = 1024;
-    const float VREF = ((2.0f / 3.0f) * 5.0f); //Reference voltage for MCP3008 ((2/3) * 5v = 3.3v)
+    static constexpr uint16_t ADC_RESOLUTION = 1024;
+    static constexpr float VREF = ((2.0f / 3.0f) * 5.0f); //Reference voltage for MCP3008 ((2/3) * 5v = 3.3v)
 };
 
 #endif

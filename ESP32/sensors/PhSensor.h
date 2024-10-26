@@ -15,7 +15,7 @@ public:
 
 private:
     //Constant for pH calculation
-    const float OFFSET = -5.0f;
+    static constexpr float OFFSET = -5.0f;
 };
 
 #endif
