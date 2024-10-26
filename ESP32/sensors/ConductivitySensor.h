@@ -11,7 +11,7 @@ private:
     const TemperatureSensor &m_temperature;
 
 public:
-    ConductivitySensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature);
+    ConductivitySensor(const uint8_t &channel, const TemperatureSensor &temperature);
     ~ConductivitySensor() override;
 
     void poll();

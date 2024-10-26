@@ -2,8 +2,8 @@
 #include "ConductivitySensor.h"
 
 
-ConductivitySensor::ConductivitySensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature)
-    : Sensor(mcp, channel), m_temperature(temperature) {}
+ConductivitySensor::ConductivitySensor(const uint8_t &channel, const TemperatureSensor &temperature)
+    : Sensor(channel), m_temperature(temperature) {}
 
 ConductivitySensor::~ConductivitySensor() {}
 

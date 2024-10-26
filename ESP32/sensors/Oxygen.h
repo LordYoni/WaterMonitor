@@ -11,7 +11,7 @@ private:
     const TemperatureSensor &m_temperature;
 
 public:
-    OxygenSensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature);
+    OxygenSensor(const uint8_t &channel, const TemperatureSensor &temperature);
     ~OxygenSensor() override;
 
     void poll();

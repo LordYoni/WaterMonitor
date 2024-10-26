@@ -7,7 +7,7 @@
 class TemperatureSensor : public Sensor
 {
 public:
-    TemperatureSensor(MCP3008 *const mcp, const uint8_t &channel);
+    TemperatureSensor(const uint8_t &channel);
     ~TemperatureSensor() override;
 
     void poll() override;

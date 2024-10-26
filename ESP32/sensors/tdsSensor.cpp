@@ -2,8 +2,8 @@
 #include "tdsSensor.h"
 
 
-tdsSensor::tdsSensor(MCP3008 *const mcp, const uint8_t &channel, const TemperatureSensor &temperature)
-    : Sensor(mcp, channel), m_tempeature(temperature) {}
+tdsSensor::tdsSensor(const uint8_t &channel, const TemperatureSensor &temperature)
+    : Sensor(channel), m_tempeature(temperature) {}
 
 tdsSensor::~tdsSensor() {}
 
