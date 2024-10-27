@@ -38,7 +38,7 @@ void loop()
         TDS,
         OXYGEN
     };
-    
+
     PhSensor            ph              (MCP_CHANNEL::PH                       );
     TemperatureSensor   temperature     (MCP_CHANNEL::TEMPERATURE              );
     tdsSensor           tds             (MCP_CHANNEL::TDS,          temperature);

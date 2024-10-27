@@ -12,7 +12,7 @@ void tdsSensor::poll()
 {
     pollVoltage();
     //Doesn't poll voltage from temp
-    
+
     const float compensationCoefficient = 1.0f + 0.02f * (m_tempeature.getValue() - 25.0f);
     const float compensatedVoltage = m_voltage / compensationCoefficient;
 

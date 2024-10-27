@@ -30,7 +30,7 @@ public:
 
     virtual void poll() = 0;
     virtual void printState() const = 0;
-    
+
     float getValue() const;
 
 protected:

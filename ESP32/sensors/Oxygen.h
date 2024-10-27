@@ -21,11 +21,11 @@ private:
 
     //CAL1 High temperature point, CAL2 Low temperature point
 
-    //Single point calibration needs CAL1_V and CAL1_T to be filled 
+    //Single point calibration needs CAL1_V and CAL1_T to be filled
     static constexpr uint16_t  CAL1_V = 1600;  //mv
     static constexpr uint8_t   CAL1_T = 25;    //℃
 
-    //Two-point calibration needs CAL2_V and CAL2_T to be filled 
+    //Two-point calibration needs CAL2_V and CAL2_T to be filled
     static constexpr uint16_t  CAL2_V = 1300;  //mv
     static constexpr uint8_t   CAL2_T = 15;    //°C
 

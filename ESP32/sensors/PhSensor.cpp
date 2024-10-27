@@ -9,7 +9,7 @@ PhSensor::~PhSensor() {}
 void PhSensor::poll()
 {
     pollVoltage();
-    
+
     m_value = 3.5f * m_voltage + OFFSET;
 }
 

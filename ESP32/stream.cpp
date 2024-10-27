@@ -61,22 +61,22 @@ inline void sendToXbee
 
         temperature_LSB,
         temperature_dec,
-        
+
         pH_LSB,
         pH_dec,
-        
+
         TDS_MSB,
         TDS_LSB,
         TDS_dec,
-        
+
         conductivity_MSB,
         conductivity_LSB,
         conductivity_dec,
-        
+
         oxygen_MSB,
         oxygen_LSB,
         oxygen_dec,
-        
+
         checksum,
         end
     };
@@ -103,7 +103,7 @@ inline void sendToXbee
     //calculate checksum
     for(uint8_t i = arrayIndex::start + 1; i != arrayIndex::checksum; i++)
         checksum_var += array[i];
-    
+
     array[arrayIndex::checksum] = checksum_var;
     array[arrayIndex::end]      = STOP_BYTE;
 
