@@ -9,15 +9,16 @@ The primary goal of this project is to develop a floating base equipped with var
 - **ESP32 Board**
 - **Raspberry Pi Board**
 - **Connection Cables**
+- **Solar Panels**
+- **Batteries**
+- **Waterproof Enclosure**
+- **XBee Modules**
 - **Sensors:**
   - Analog TDS Sensor
   - Industrial pH Electrode
   - Analog Dissolved Oxygen Sensor
   - Analog Electrical Conductivity Sensor
-  - Solar Panel
-  - Battery
-  - Waterproof Enclosure
-  - XBee Modules
+
 
 ## 🔍 Sensor References
 
