@@ -1,15 +1,15 @@
-# 🚀 ESP32 Project
+# WaterMonitor
 
 ## 🎯 Project Goal
 
-The primary goal of this project is to develop a floating base equipped with various sensors housed in a waterproof enclosure. The collected data will be transmitted via XBee modules, relayed through XBee relays to a central XBee. This data will subsequently be sent to a Raspberry Pi, where it will be stored in a database and displayed on a web interface.
+The primary goal of this project is to develop a floating base equipped with various sensors housed in a waterproof enclosure. The collected data is transmitted via XBee modules to a Raspberry Pi, where it will be stored in a database and displayed on a web interface.
 
 ## 🛠️ Required Hardware
 
 - **ESP32 Board**
 - **Raspberry Pi Board**
 - **Connection Cables**
-- **Project-Specific Components:**
+- **Sensors:**
   - Analog TDS Sensor
   - Industrial pH Electrode
   - Analog Dissolved Oxygen Sensor
@@ -55,7 +55,7 @@ The primary goal of this project is to develop a floating base equipped with var
 
 ### Installing the ESP32 Board in Arduino IDE
 
-1. **Open Arduino IDE**: Ensure you have the latest version installed.
+1. **Open Arduino IDE**: Make sure you have the latest version installed.
 2. **Access Preferences**: Go to `File` > `Preferences`.
 3. **Add Board URL**: In the "Additional Board Manager URLs" field, add the following URL: https://dl.espressif.com/dl/package_esp32_index.json
    If there are already URLs in this field, separate them with commas.
