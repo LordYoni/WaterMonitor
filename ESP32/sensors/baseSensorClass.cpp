@@ -14,6 +14,6 @@ void Sensor::setErrorFlagIfNegativeValue() { m_value_error = m_value < 0.0f ? tr
 
 boolean Sensor::isValueWrong() const { return m_value_error; }
 
-void Sensor::serialPrintValue() const { m_value_error ? Serial.print("Invalid") : Serial.print(m_value); }
+void Sensor::serialPrintValue() const { m_value_error ? Serial.print(F("Invalid")) : Serial.print(m_value); }
 
 float Sensor::getValue() const { return m_value; }
