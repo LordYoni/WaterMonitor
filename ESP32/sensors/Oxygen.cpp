@@ -33,11 +33,12 @@ void OxygenSensor::poll()
 
     #endif
 
+    setErrorFlagIfNegativeValue();
 }
 
 void OxygenSensor::printState() const
 {
     Serial.print(F("DO: "));
-    Serial.print(m_value);
+    serialPrintValue();
     Serial.println(F(" mg/L"));
 }

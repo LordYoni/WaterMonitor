@@ -78,43 +78,67 @@ while True:
 
     if len(array_in) == expected_input_size:
         if array_in[ArrayIndex.start.value] == start_byte and array_in[ArrayIndex.end.value] == end_byte:
-            
+
             #Calculate checksum
             checksum = 0
 
             for i in range(ArrayIndex.start.value + 1, ArrayIndex.checksum.value):
                 checksum += array_in[i]
-            
+
             checksum = checksum % 0x100
 
             if checksum == array_in[ArrayIndex.checksum.value]:
 
                 #Retrieve data from array
-                
-                #Handle negative temperature                
-                temp = array_in[ArrayIndex.temperature_LSB.value]
 
-                if temp & 0x80:
-                    temp        = '-' + str((temp ^ 0xff) + 1)
-                    
-                temperature     = float(temp + add_comma( array_in[ArrayIndex.temperature_dec.value]))
-                
-                ph              = float(str(array_in[ArrayIndex.pH_LSB.value]) + add_comma(array_in[ArrayIndex.pH_dec.value]))
+                if array_in[ArrayIndex.temperature_LSB.value] != 0xff:
 
-                temp            = str(array_in[ArrayIndex.TDS_MSB.value] * 256 + array_in[ArrayIndex.TDS_LSB.value])
-                tds             = float(temp + add_comma(array_in[ArrayIndex.TDS_dec.value]))
+                    #Handle negative temperature
+                    temp = array_in[ArrayIndex.temperature_LSB.value]
 
-                temp            = str(array_in[ArrayIndex.conductivity_MSB.value] * 256 + array_in[ArrayIndex.conductivity_LSB.value])
-                conductivity    = float(temp + add_comma(array_in[ArrayIndex.conductivity_dec.value]))
+                    temp = ('-' + str((temp ^ 0xff) + 1)) if temp & 0x80 else temp
 
-                temp            = str(array_in[ArrayIndex.oxygen_MSB.value] * 256 + array_in[ArrayIndex.oxygen_LSB.value])
-                oxygen          = float(temp + add_comma(array_in[ArrayIndex.oxygen_dec.value]))
+                    temperature     = float(temp + add_comma( array_in[ArrayIndex.temperature_dec.value]))
 
-                #TODO: failsafe for invalid values
+                else:
+                    temperature     = 0.0
+
+
+
+                ph = (float(str(array_in[ArrayIndex.pH_LSB.value]) + add_comma(array_in[ArrayIndex.pH_dec.value]))) if array_in[ArrayIndex.pH_LSB.value] != 0xff else 0.0
+
+
+
+                if array_in[ArrayIndex.TDS_MSB.value] != 0xff:
+                    temp            = str(array_in[ArrayIndex.TDS_MSB.value] * 256 + array_in[ArrayIndex.TDS_LSB.value])
+                    tds             = float(temp + add_comma(array_in[ArrayIndex.TDS_dec.value]))
+
+                else:
+                    tds             = 0.0
+
+
+
+                if array_in[ArrayIndex.conductivity_MSB.value] != 0xff:
+                    temp            = str(array_in[ArrayIndex.conductivity_MSB.value] * 256 + array_in[ArrayIndex.conductivity_LSB.value])
+                    conductivity    = float(temp + add_comma(array_in[ArrayIndex.conductivity_dec.value]))
+
+                else:
+                    conductivity    = 0.0
+
+
+
+                if array_in[ArrayIndex.oxygen_MSB.value] != 0xff:
+                    temp            = str(array_in[ArrayIndex.oxygen_MSB.value] * 256 + array_in[ArrayIndex.oxygen_LSB.value])
+                    oxygen          = float(temp + add_comma(array_in[ArrayIndex.oxygen_dec.value]))
+
+                else:
+                    oxygen = 0.0
+
+
 
                 for i in range(ArrayIndex.start.value + 1, ArrayIndex.checksum.value):
                     print(hex(array_in[i]))
-                
+
                 print()
 
                 print("Temperature: "   + str(temperature))

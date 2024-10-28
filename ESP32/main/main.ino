@@ -61,6 +61,8 @@ void loop()
         conductivity.printState();
         oxygen.printState();
 
+        Serial.println();
+
     #else
 
         sendToXbee(ph, temperature, tds, conductivity, oxygen);

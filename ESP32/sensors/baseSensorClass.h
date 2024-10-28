@@ -18,12 +18,18 @@ private:
     const uint8_t m_channel;
 
 protected:
+    boolean m_value_error;
+
     float m_voltage;
     float m_value;
+
 
     Sensor(const uint8_t &channel);
 
     void pollVoltage();
+
+    void setErrorFlagIfNegativeValue();
+    void serialPrintValue() const;
 
 public:
     virtual ~Sensor();
@@ -32,6 +38,8 @@ public:
     virtual void printState() const = 0;
 
     float getValue() const;
+
+    boolean isValueWrong() const;
 
 protected:
     static constexpr uint16_t ADC_RESOLUTION = 1024;

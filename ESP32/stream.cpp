@@ -15,9 +15,9 @@ float abs_float(const float &number)
     return number;
 }
 
-uint8_t getMSB(const float &number){ return (uint8_t)( abs_float(number) / 256 ); }
+uint8_t getMSB(const float &number) { return (uint8_t)( abs_float(number) / 256 ); }
 
-uint8_t getLSB(const float &number){ return (uint8_t)abs_float(number); }
+uint8_t getLSB(const float &number) { return (uint8_t)abs_float(number); }
 
 uint8_t getDecimal(float number)
 {
@@ -36,6 +36,13 @@ void writeToArray
     const   uint8_t     &size
 )
 {
+    if(sensor.isValueWrong())
+    {
+        array[index] = 0xff;
+        index += size;
+        return;
+    }
+
     if(size == 3)
         array[index++] = getMSB (sensor.getValue());
 

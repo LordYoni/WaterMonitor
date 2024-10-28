@@ -18,11 +18,13 @@ void tdsSensor::poll()
 
     m_value = (133.42f * pow(compensatedVoltage, 3.0f) -
           255.86f * pow(compensatedVoltage, 2.0f) + 857.39f * compensatedVoltage) * 0.5f;
+    
+    setErrorFlagIfNegativeValue();
 }
 
 void tdsSensor::printState() const
 {
     Serial.print(F("TDS: "));
-    Serial.print(m_value);
+    serialPrintValue();
     Serial.println(F(" ppm"));
 }

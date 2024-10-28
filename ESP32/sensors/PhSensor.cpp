@@ -11,10 +11,14 @@ void PhSensor::poll()
     pollVoltage();
 
     m_value = 3.5f * m_voltage + OFFSET;
+
+    setErrorFlagIfNegativeValue();
+    m_value_error = m_value > 14.0f ? true : m_value_error;
 }
 
 void PhSensor::printState() const
 {
     Serial.print(F("pH: "));
-    Serial.println(m_value);
+    serialPrintValue();
+    Serial.println();
 }
