@@ -74,7 +74,7 @@ Xbee = serial.Serial('/dev/ttyUSB0', 9600, serial.EIGHTBITS, serial.PARITY_NONE,
 while True:
     Xbee.reset_input_buffer()
 
-    array_in = Xbee.read(input_size)
+    array_in = Xbee.read(expected_input_size)
 
     if len(array_in) == expected_input_size:
         if array_in[ArrayIndex.start.value] == start_byte and array_in[ArrayIndex.end.value] == end_byte:
