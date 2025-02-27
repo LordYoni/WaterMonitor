@@ -96,7 +96,7 @@ while True:
                     #Handle negative temperature
                     temp = array_in[ArrayIndex.temperature_LSB.value]
 
-                    temp = ('-' + str((temp ^ 0xff) + 1)) if temp & 0x80 else temp
+                    temp = ('-' + str((temp ^ 0xff) + 1)) if temp & 0x80 else str(temp)
 
                     temperature     = float(temp + add_comma( array_in[ArrayIndex.temperature_dec.value]))
 
