@@ -24,7 +24,7 @@ The primary goal of this project is to develop a floating base equipped with var
 
 ### 1. Analog TDS Sensor/Meter
 
-- **Link**: [Analog TDS Sensor - DFRobot](https://fr.farnell.com/en-FR/dfrobot/sen0244/analogue-tds-sensor-meter-kit/dp/3517934)
+- **Link**: [Analog TDS Sensor - DFRobot](https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244)
 - **Voltage Range**: 3.3 ~ 5.5 V
 
 ### 2. Industrial pH Electrode - SKU: FIT0348
