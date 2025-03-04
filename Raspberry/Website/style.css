@@ -1,46 +1,140 @@
-/* Main container spacing */
-.container {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Poppins:wght@100..900&display=swap");
 
-/* Card styling */
-.card {
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #f8f9fa;
-}
-
-/* Hover effect for cards */
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Title inside the card */
-.card-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #007bff;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-/* Text inside the card */
-.card-text {
-  font-size: 1.1rem;
-  color: #333;
-  font-weight: 500;
-}
-
-/* Space between columns */
-.col {
-  margin-bottom: 20px;
-}
-
-/* Global font and background */
 body {
-  font-family: "Arial", sans-serif;
-  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+/* 🚀 Barre de navigation */
+.navbar {
+  background-color: #009a82;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 5%;
+}
+
+/* 🏆 Logo */
+.logo img {
+  height: 100px;
+  width: auto;
+}
+
+/* 🖱️ Liens de navigation */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 100px;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* 🌄 Fond principal */
+.background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between; /* Espacement entre les cartes et le cercle */
+  align-items: center;
+  padding: 0 5%;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("assets/Parc_isle_fond.webp");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+/* 📊 Cartes d'informations */
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  top: -5%;
+}
+
+/* 💳 Style des cartes */
+.card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0 10px;
+  border-radius: 10px;
+  width: 400px;
+  height: 110px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🎨 Couleurs des cartes */
+.red {
+  color: #9a0000;
+}
+.green {
+  color: #009a82;
+}
+.gold {
+  color: #9a7b00;
+}
+.gold_border {
+  border: 15px solid #8c6a00;
+}
+.red_border {
+  border: 15px solid #9a0000;
+}
+.green_border {
+  border: 15px solid #009a82;
+}
+
+/* 🟡 Cercle indicateur de qualité */
+.quality-container {
+  width: 700px;
+  height: 700px;
+  background: #f5f1e3;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  left: -15%;
+  margin-top: -5%;
+}
+
+/* Texte dans le cercle */
+.quality-container span {
+  display: block;
+  font-size: 2rem;
 }
