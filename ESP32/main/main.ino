@@ -8,6 +8,8 @@
 #include "ConductivitySensor.h"
 #include "Oxygen.h"
 
+#include "sendToXbee.h"
+
 //Defines whether we want to output data to Xbee or
 //in a readable format in the serial monitor
 #define sendToSerialMonitor true

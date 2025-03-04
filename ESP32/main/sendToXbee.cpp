@@ -52,7 +52,7 @@ void writeToArray
 
 
 
-inline void sendToXbee
+void sendToXbee
 (
     const PhSensor              &ph,
     const TemperatureSensor     &temperature,
