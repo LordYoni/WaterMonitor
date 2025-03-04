@@ -1,10 +1,10 @@
 
-#include "sensors/baseSensorClass.h"
-#include "sensors/PhSensor.h"
-#include "sensors/Temperature.h"
-#include "sensors/tdsSensor.h"
-#include "sensors/ConductivitySensor.h"
-#include "sensors/Oxygen.h"
+#include "baseSensorClass.h"
+#include "PhSensor.h"
+#include "Temperature.h"
+#include "tdsSensor.h"
+#include "ConductivitySensor.h"
+#include "Oxygen.h"
 
 
 float abs_float(const float &number)

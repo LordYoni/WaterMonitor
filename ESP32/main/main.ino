@@ -1,14 +1,12 @@
 
 #include <MCP3008.h> //TODO: get rid of this library
 
-#include "../sensors/baseSensorClass.cpp"
-#include "../sensors/PhSensor.cpp"
-#include "../sensors/Temperature.cpp"
-#include "../sensors/tdsSensor.cpp"
-#include "../sensors/ConductivitySensor.cpp"
-#include "../sensors/Oxygen.cpp"
-
-#include "../stream.cpp"
+#include "baseSensorClass.h"
+#include "PhSensor.h"
+#include "Temperature.h"
+#include "tdsSensor.h"
+#include "ConductivitySensor.h"
+#include "Oxygen.h"
 
 //Defines whether we want to output data to Xbee or
 //in a readable format in the serial monitor
