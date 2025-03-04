@@ -1,9 +1,9 @@
 window.onload = function () {
-  fetchData(); // Initial call to load data when the page loads
-  setInterval(fetchData, 5000); // Refresh data every 5 seconds
+  fetchData();
+  setInterval(fetchData, 5000);
 };
 
-// Function to calculate the time since the last update
+// Calculate the time since the last update
 function timeSince(lastUpdate) {
   const now = new Date();
   const updateTime = new Date(lastUpdate.replace(" ", "T"));
@@ -21,7 +21,7 @@ function timeSince(lastUpdate) {
   }
 }
 
-// Function to calculate the state of the system
+// Calculate the state of the system
 function state(lastUpdate) {
   const now = new Date();
   const updateTime = new Date(lastUpdate.replace(" ", "T"));
@@ -35,91 +35,90 @@ function state(lastUpdate) {
   }
 }
 
-// Fonction pour obtenir la couleur du pH
+// Get the color for pH
 function getColorpH(pH) {
   if (pH < 5.5) {
-    return "red"; // Trop acide
+    return "red"; // Too acidic
   } else if (pH >= 5.5 && pH <= 7.0) {
-    return "green"; // Gamme normale pour un marais
+    return "green"; // Normal range for a marsh
   } else {
-    return "gold"; // Trop alcalin
+    return "gold"; // Too alkaline
   }
 }
 
-// Fonction pour obtenir la couleur du TDS
+// Get the color for TDS
 function getColorTDS(TDS) {
   if (TDS < 100) {
-    return "green"; // Faible TDS (idéal pour un marais)
+    return "green"; // Low TDS (ideal for a marsh)
   } else if (TDS >= 100 && TDS <= 500) {
-    return "gold"; // TDS modéré
+    return "gold"; // Moderate TDS
   } else {
-    return "red"; // TDS élevé (indication d'une contamination ou d'un problème)
+    return "red"; // High TDS (indication of contamination or problem)
   }
 }
 
-// Fonction pour obtenir la couleur de l'Oxygène dissous
+// Get the color for Dissolved Oxygen
 function getColorOx(Oxygen) {
   if (Oxygen < 4) {
-    return "red"; // Faible en oxygène (problème)
+    return "red"; // Low oxygen (problem)
   } else if (Oxygen >= 4 && Oxygen <= 7) {
-    return "green"; // Oxygène dans la norme pour un marais
+    return "green"; // Normal oxygen level for a marsh
   } else {
-    return "gold"; // Oxygène très élevé (peut indiquer une photosynthèse excessive)
+    return "gold"; // Very high oxygen (may indicate excessive photosynthesis)
   }
 }
 
-// Fonction pour obtenir la couleur de la Conductivité
+// Get the color for Conductivity
 function getColorConductivity(Conductivity) {
   if (Conductivity < 150) {
-    return "green"; // Faible conductivité (eau douce)
+    return "green"; // Low conductivity (freshwater)
   } else if (Conductivity >= 150 && Conductivity <= 500) {
-    return "gold"; // Conductivité modérée (eau légèrement minéralisée)
+    return "gold"; // Moderate conductivity (slightly mineralized water)
   } else {
-    return "red"; // Haute conductivité (eau salée ou contamination)
+    return "red"; // High conductivity (salty water or contamination)
   }
 }
 
-// Fonction pour obtenir la couleur de la Température
+// Get the color for Temperature
 function getColorTemp(Temperature) {
   if (Temperature < 15) {
-    return "green"; // Température basse (frais)
+    return "green"; // Low temperature (cool)
   } else if (Temperature >= 15 && Temperature <= 25) {
-    return "gold"; // Température normale (idéal pour la vie aquatique)
+    return "gold"; // Normal temperature (ideal for aquatic life)
   } else {
-    return "red"; // Température élevée (peut être problématique pour la faune/flore)
+    return "red"; // High temperature (may be problematic for fauna/flora)
   }
 }
 
-// Fonction pour obtenir la couleur du temps écoulé depuis la dernière mise à jour
+// Get the color for the time since the last update
 function getColorTime(lastUpdate) {
   const status = timeSince(lastUpdate);
 
   if (status.endsWith("m")) {
-    return "green"; // Mise à jour récente
+    return "green"; // Recent update
   } else if (status.endsWith("h")) {
     const hours = parseInt(status.replace("h", ""));
     if (hours < 2) {
-      return "gold"; // Mise à jour il y a moins de 2 heures
+      return "gold"; // Updated less than 2 hours ago
     } else {
-      return "red"; // Mise à jour trop ancienne
+      return "red"; // Update too old
     }
   } else if (status.endsWith("d")) {
-    return "red"; // Mise à jour très ancienne (en jours)
+    return "red"; // Very old update (in days)
   }
 }
 
-// Fonction pour obtenir la couleur de l'état (Running / Not running)
+// Get the color for the state (Running / Not running)
 function getColorState(state) {
   if (state === "Running") {
-    return "green"; // Système en fonctionnement
+    return "green"; // System running
   } else {
-    return "red"; // Système non fonctionnel
+    return "red"; // System not running
   }
 }
 
-// Fonction pour déterminer la qualité globale de l'eau
+// Determine the overall water quality
 function getWaterQuality(latestEntry) {
-  // Obtenons les couleurs des différentes données (sauf le temps et l'état)
   const colors = [
     getColorpH(latestEntry.pH),
     getColorTDS(latestEntry.TDS),
@@ -128,79 +127,70 @@ function getWaterQuality(latestEntry) {
     getColorTemp(latestEntry.Temperature),
   ];
 
-  // Log des couleurs pour voir si elles sont correctes
-  console.log("Couleurs des paramètres:", colors);
+  console.log("Parameter colors:", colors);
 
-  // Compter les occurrences de chaque couleur
   const colorCounts = { red: 0, gold: 0, green: 0 };
 
-  // Incrémenter les compteurs correctement
   colors.forEach((color) => {
     if (colorCounts.hasOwnProperty(color)) {
       colorCounts[color]++;
     }
   });
 
-  // Log du comptage des couleurs
-  console.log("Comptage des couleurs:", colorCounts);
+  console.log("Color counts:", colorCounts);
 
-  // Déterminer la qualité globale de l'eau en fonction des couleurs
   if (
     colorCounts.red >= 2 ||
     getColorState(state(latestEntry.Time)) === "red"
   ) {
-    console.log("Qualité de l'eau : Mauvaise");
-    return "red"; // Eau de mauvaise qualité
+    console.log("Water quality: Poor");
+    return "red"; // Poor water quality
   } else if (
     colorCounts.gold >= 2 ||
     getColorTime(latestEntry.Time) === "gold"
   ) {
-    console.log("Qualité de l'eau : Modérée");
-    return "gold"; // Eau de qualité modérée
+    console.log("Water quality: Moderate");
+    return "gold"; // Moderate water quality
   } else if (colorCounts.green >= 3) {
-    console.log("Qualité de l'eau : Bonne");
-    return "green"; // Eau de bonne qualité
+    console.log("Water quality: Good");
+    return "green"; // Good water quality
   } else {
-    console.log("Qualité de l'eau : Inconnue");
-    return "unknow"; // Cas peu probable, mais au cas où
+    console.log("Water quality: Unknown");
+    return "unknown"; // Unlikely case, but just in case
   }
 }
 
 function updateWaterQualityDisplay(latestEntry) {
-  const waterQuality = getWaterQuality(latestEntry); // Récupère la qualité de l'eau
+  const waterQuality = getWaterQuality(latestEntry);
   console.log(waterQuality);
-  // Récupère les éléments HTML où appliquer la classe
   const qualityContainer = document.getElementById("quality");
   const qualitySpan = document.getElementById("quality-span");
 
-  // Appliquer les couleurs et classes en fonction de la qualité de l'eau
   if (waterQuality === "red") {
-    qualityContainer.className = "quality-container red_border"; // Applique la classe "red" à quality-container
-    qualitySpan.className = "red"; // Applique la classe "red" à quality-span
+    qualityContainer.className = "quality-container red_border";
+    qualitySpan.className = "red";
     qualitySpan.innerHTML = "MAUVAIS";
   } else if (waterQuality === "gold") {
-    qualityContainer.className = "quality-container gold_border"; // Applique la classe "gold" à quality-container
-    qualitySpan.className = "gold"; // Applique la classe "gold" à quality-span
+    qualityContainer.className = "quality-container gold_border";
+    qualitySpan.className = "gold";
     qualitySpan.innerHTML = "MOYEN";
   } else if (waterQuality === "green") {
-    qualityContainer.className = "quality-container green_border"; // Applique la classe "green" à quality-container
-    qualitySpan.className = "green"; // Applique la classe "green" à quality-span
+    qualityContainer.className = "quality-container green_border";
+    qualitySpan.className = "green";
     qualitySpan.innerHTML = "BON";
   } else {
-    // Cas où la qualité de l'eau est indéterminée
-    qualityContainer.className = "unknown"; // Optionnel, si vous avez une classe pour "Unknown"
-    qualitySpan.className = "unknown"; // Optionnel, si vous avez une classe pour "Unknown"
+    qualityContainer.className = "unknown";
+    qualitySpan.className = "unknown";
   }
 }
 
 function fetchData() {
-  /*const latestEntry = {pH: 7.2,TDS: 1,Oxygen: 3,Conductivity: 1200,Temperature: 1,Time: "2025-03-04 21:35:00"};*/
   fetch("value.php")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json(); // Parse JSON data from the response
+      return response.json();
     })
     .then((data) => {
       if (data.length === 0) {
@@ -210,12 +200,11 @@ function fetchData() {
 
       const latestEntry = data[data.length - 1];
       const dataCards = document.getElementById("info-container");
-      dataCards.innerHTML = ""; // Clear previous cards
+      dataCards.innerHTML = "";
 
-      // Array containing the information to display in the cards
       const infoArray = [
         {
-          label: "PH",
+          label: "pH",
           value: `${latestEntry.pH}`,
           icon: "💧",
           color: getColorpH(latestEntry.pH),
@@ -227,31 +216,31 @@ function fetchData() {
           color: getColorTDS(latestEntry.TDS),
         },
         {
-          label: "Oxygen",
+          label: "Oxygène",
           value: `${latestEntry.Oxygen} mg/L`,
           icon: "🫧",
           color: getColorOx(latestEntry.Oxygen),
         },
         {
-          label: "Conductivity",
+          label: "Conductivité",
           value: `${latestEntry.Conductivity} µS/cm`,
           icon: "⚡",
           color: getColorConductivity(latestEntry.Conductivity),
         },
         {
-          label: "Temperature",
+          label: "Température",
           value: `${latestEntry.Temperature} °C`,
           icon: "🌡️",
           color: getColorTemp(latestEntry.Temperature),
         },
         {
-          label: "Last update",
+          label: "Actualisation",
           value: timeSince(latestEntry.Time),
           icon: "⏱️",
           color: getColorTime(latestEntry.Time),
         },
         {
-          label: "Status",
+          label: "État",
           value: state(latestEntry.Time),
           icon: state(latestEntry.Time) === "Running" ? "✔️" : "❌",
           color: getColorState(state(latestEntry.Time)),
