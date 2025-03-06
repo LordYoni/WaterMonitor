@@ -177,10 +177,13 @@ curl -o /var/www/html/index.html https://raw.githubusercontent.com/LordYoni/Wate
 curl -o /var/www/html/script.js https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/script.js  
 curl -o /var/www/html/style.css https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/style.css  
 curl -o /var/www/html/value.php https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/value.php  
+curl -o /var/www/html/assets/logo_fav.png https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/assets/logo_fav.png  
+curl -o /var/www/html/assets/logo.jpg https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/assets/logo.jpg  
+curl -o /var/www/html/assets/Parc_isle_fond.webp https://raw.githubusercontent.com/LordYoni/WaterMonitor/refs/heads/main/Raspberry/Website/assets/Parc_isle_fond.webp
 
 # Change ownership and set permissions for website files
-sudo chown www-data:www-data /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php  
-sudo chmod 644 /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php  
+sudo chown www-data:www-data /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php  /var/www/html/assets/logo_fav.png /var/www/html/assets/logo.jpg /var/www/html/assets/Parc_isle_fond.webp 
+sudo chmod 644 /var/www/html/index.html /var/www/html/script.js /var/www/html/style.css /var/www/html/value.php  /var/www/html/assets/logo_fav.png /var/www/html/assets/logo.jpg /var/www/html/assets/Parc_isle_fond.webp 
 
 # Install pip for Python 3
 install_if_not_exists python3-pip  
