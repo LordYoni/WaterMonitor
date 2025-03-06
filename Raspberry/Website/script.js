@@ -169,15 +169,15 @@ function updateWaterQualityDisplay(latestEntry) {
   if (waterQuality === "red") {
     qualityContainer.className = "quality-container red_border";
     qualitySpan.className = "red";
-    qualitySpan.innerHTML = "MAUVAIS";
+    qualitySpan.innerHTML = "MAUVAISE";
   } else if (waterQuality === "gold") {
     qualityContainer.className = "quality-container gold_border";
     qualitySpan.className = "gold";
-    qualitySpan.innerHTML = "MOYEN";
+    qualitySpan.innerHTML = "MOYENNE";
   } else if (waterQuality === "green") {
     qualityContainer.className = "quality-container green_border";
     qualitySpan.className = "green";
-    qualitySpan.innerHTML = "BON";
+    qualitySpan.innerHTML = "BONNE";
   } else {
     qualityContainer.className = "unknown";
     qualitySpan.className = "unknown";
