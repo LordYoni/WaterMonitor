@@ -26,5 +26,7 @@ void tdsSensor::printState() const
 {
     Serial.print(F("TDS: "));
     serialPrintValue();
-    Serial.println(F(" ppm"));
+    Serial.print(F(" ppm, voltage: "));
+    Serial.print(m_voltage);
+    Serial.println(F("v"));
 }

@@ -19,7 +19,7 @@ public:
 
 private:
     //Constants for Conductivity calculation
-    static constexpr inline float k = 1.0f;
+    static constexpr inline float k = 1151.604395604395604f;
     static constexpr inline float RES2 = 820.0f;
     static constexpr inline float ECREF = 200.0f;
 };

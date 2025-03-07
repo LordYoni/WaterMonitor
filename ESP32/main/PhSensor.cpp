@@ -20,5 +20,7 @@ void PhSensor::printState() const
 {
     Serial.print(F("pH: "));
     serialPrintValue();
-    Serial.println();
+    Serial.print(F(", voltage: "));
+    Serial.print(m_voltage);
+    Serial.println(F("v"));
 }

@@ -32,11 +32,11 @@ void loop()
 {
     enum MCP_CHANNEL : uint8_t
     {
+        PH,
         CONDUCTIVITY,
         TEMPERATURE,
-        PH,
-        TDS,
-        OXYGEN
+        OXYGEN,
+        TDS
     };
 
     PhSensor            ph              (MCP_CHANNEL::PH                       );

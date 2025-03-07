@@ -21,7 +21,7 @@ void OxygenSensor::poll()
     uint16_t voltage_mv = m_voltage * 1000;
     uint8_t temperature_c = (uint8_t)(m_temperature.getValue());
 
-    #if TWO_POINT_CALIBRATION == 0
+    #if TWO_POINT_CALIBRATION == 1
 
         uint16_t V_saturation = (uint32_t)CAL1_V + (uint32_t)35 * temperature_c - (uint32_t)CAL1_T * 35;
         m_value = (voltage_mv * DO_Table[temperature_c] / V_saturation) / 1000.0f;
@@ -40,5 +40,7 @@ void OxygenSensor::printState() const
 {
     Serial.print(F("DO: "));
     serialPrintValue();
-    Serial.println(F(" mg/L"));
+    Serial.print(F(" mg/L, voltage: "));
+    Serial.print(m_voltage * 1000);
+    Serial.println(F("mv"));
 }

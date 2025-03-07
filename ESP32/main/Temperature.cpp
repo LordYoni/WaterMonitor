@@ -20,5 +20,7 @@ void TemperatureSensor::printState() const
 {
     Serial.print(F("Temperature: "));
     serialPrintValue();
-    Serial.println(F(" °C"));
+    Serial.print(F(" °C, voltage: "));
+    Serial.print(m_voltage);
+    Serial.println(F("v"));
 }

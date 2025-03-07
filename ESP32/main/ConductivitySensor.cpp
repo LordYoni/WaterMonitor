@@ -25,5 +25,7 @@ void ConductivitySensor::printState() const
     Serial.print(m_voltage);
     Serial.print(F(" mV, Conductivity: "));
     serialPrintValue();
-    Serial.println(F(" uS/cm"));
+    Serial.print(F(" uS/cm, Voltage: "));
+    Serial.print(m_voltage);
+    Serial.println(F("v"));
 }
